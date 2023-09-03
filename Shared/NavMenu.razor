@@ -1,0 +1,60 @@
+﻿<nav class="clube-main-navbar navbar navbar-expand-lg shadow w-100 py-2 px-5 mb-4 border-bottom border-body">
+    <div class="container-fluid">
+        <NavLink class="navbar-brand nav-link nav-item" href="">
+            <span class="text-white bg-dark" style="filter:drop-shadow(2px 4px 8px black) contrast(1.1)">Clube das Rebeldes</span>
+        </NavLink>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav col-5 mx-5 d-flex align-items-center">
+                <li class="nav-item d-none px-3">
+                    <NavLink class="nav-link h-100" href="doofens">
+                        <span class="text-uppercase text-doofens highlight-doofens" aria-hidden="true">Doofens</span>
+                    </NavLink>
+                </li>
+                <li class="nav-item d-none px-3">
+                    <NavLink class="nav-link h-100" href="drumon">
+                        <span class="text-uppercase text-drumon highlight-drumon" aria-hidden="true">Drumon</span>
+                    </NavLink>
+                </li>
+                <li class="nav-item d-none px-3">
+                    <NavLink class="nav-link h-100" href="jujuba">
+                        <span class="text-uppercase text-jujuba highlight-jujuba" aria-hidden="true">Jujuba</span>
+                    </NavLink>
+                </li>
+                <li class="nav-item d-none px-3">
+                    <NavLink class="nav-link h-100" href="pleshw">
+                        <span class="text-uppercase text-pleshw highlight-pleshw" aria-hidden="true">Pleshw</span>
+                    </NavLink>
+                </li>
+            </ul>
+        </div>
+
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-uppercase" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Ferramentas
+            </a>
+            <ul class="dropdown-menu shadow rounded">
+                <li><hr class="dropdown-divider"></li>
+                <li class="text-center d-flex justify-content-center w-100 h-100">
+                    <NavLink class="nav-link small-font  w-100" href="galeria">
+                        <span class="w-100">Galeria</span>
+                    </NavLink>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

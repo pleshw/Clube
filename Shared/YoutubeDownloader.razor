@@ -1,0 +1,115 @@
+﻿@using Clube.Data
+@using System.Text.RegularExpressions;
+@implements IObserver<double>
+@inject YoutubeDownloaderService DownloaderService
+
+<form @onsubmit="@DownloadVideoFromURL" class="row justify-content-center">
+    <div class="mb-3 col-12 row mt-4 px-5">
+        <InputText @bind-Value="YoutubeURLInputValue" class="form-control" placeholder="link do vídeo" id="youtubeURLToDownload" />
+    </div>
+
+    @if (!string.IsNullOrEmpty( thumbURL ))
+    {
+        <img src="@thumbURL" class="p-5 img-fluid" />
+    }
+
+    @if (isDownloading)
+    {
+        <button type="submit" class="btn btn-outline-danger col-4" disabled>@downloadProgress.ToString()%</button>
+    }
+    else
+    {
+        <button type="submit" class="btn btn-outline-danger col-4">Salvar</button>
+    }
+</form>
+
+@code {
+    public static int downloadProgress = 0;
+
+    public static string thumbURL = "";
+
+    public static bool downloadCompleted = false;
+    public static bool downloadError = false;
+
+    public static bool isDownloading = false;
+
+    public YoutubeDownloaderService? downloaderService;
+    private string youtubeURLInputValue  = "";
+
+    private string YoutubeURLInputValue { get
+        {
+            return youtubeURLInputValue;
+        }
+        set
+        {
+            youtubeURLInputValue = value;
+
+            InvokeAsync(DisplayThumbnailIfAvailable);
+        } }
+
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        downloaderService = new YoutubeDownloaderService(new ProgressTracker(this));
+        InvokeAsync( StateHasChanged );
+    }
+
+    protected override void OnAfterRender( bool firstRender )
+    {
+        base.OnAfterRender( firstRender );
+        if (firstRender)
+        {
+            thumbURL = "";
+            downloadProgress = 0;
+            downloadCompleted = false;
+            downloadError = false;
+            isDownloading = false;
+            youtubeURLInputValue = "";
+        }
+    }
+
+    public async Task DisplayThumbnailIfAvailable()
+    {
+        thumbURL = "";
+        if (!string.IsNullOrEmpty( youtubeURLInputValue ))
+        {
+            var regexYoutubeVideoUrl = new Regex(@"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|live\/|v\/)?)([\w\-]+)(\S+)?$");
+            if (regexYoutubeVideoUrl.Match( youtubeURLInputValue ).Success)
+            {
+                thumbURL = await downloaderService!.GetVideoThumbnail( youtubeURLInputValue );
+                StateHasChanged();
+            }
+        }
+    }
+
+    public async Task DownloadVideoFromURL()
+    {
+        if (!string.IsNullOrEmpty( youtubeURLInputValue ) && !isDownloading)
+        {
+            await downloaderService!.GetVideoAsync( youtubeURLInputValue );
+        }
+    }
+
+    public void OnCompleted()
+    {
+        isDownloading = false;
+        downloadCompleted = true;
+        StateHasChanged();
+    }
+
+    public void OnError( Exception error )
+    {
+        isDownloading = false;
+        downloadError = true;
+        StateHasChanged();
+    }
+
+    public void OnNext( double value )
+    {
+        isDownloading = true;
+        downloadProgress = (int)double.Round( value * 100 );
+        StateHasChanged();
+    }
+}
