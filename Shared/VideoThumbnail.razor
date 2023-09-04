@@ -17,7 +17,7 @@
     }
 </style>
 
-<a class="mb-4 d-flex justify-content-center" target="_blank" href="@VideoURL" style="max-width: 400px;" id="@ThumbId">
+<a class="mb-4 d-flex justify-content-center p-0" target="_blank" href="@VideoURL" style="max-width: 400px;" id="@ThumbId">
     <div class="card m-0">
         <img src="@ThumbURL" class="card-img-top" />
         <div class="card-body">
@@ -48,12 +48,16 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        ThumbURL = VideoMetadata.Thumbnails.GetWithHighestResolution().Url;
-        VideoTitle = VideoMetadata.Title;
+        if (VideoMetadata != null)
+        {
+            ThumbURL = VideoMetadata.Thumbnails.GetWithHighestResolution().Url;
+            VideoTitle = VideoMetadata.Title;
 
-        module = await JS.InvokeAsync<IJSObjectReference>( "import" , "./videoThumbnail.js" );
-        await module.InvokeVoidAsync( "disposePopover" , ThumbId );
-        await module.InvokeVoidAsync( "loadPopover" , ThumbId , VideoTitle , VideoMetadata.Author.ChannelTitle , VideoMetadata.Duration!.Value.ToString() );
+            module = await JS.InvokeAsync<IJSObjectReference>( "import" , "./videoThumbnail.js" );
+            await module.InvokeVoidAsync( "disposePopover" , ThumbId );
+            await module.InvokeVoidAsync( "loadPopover" , ThumbId , VideoTitle , VideoMetadata.Author.ChannelTitle , VideoMetadata.Duration!.Value.ToString() );
+
+        }
     }
 
     protected override async Task OnParametersSetAsync()

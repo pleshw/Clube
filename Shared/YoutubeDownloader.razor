@@ -4,36 +4,38 @@
 @implements IObserver<double>
 @inject YoutubeDownloaderService DownloaderService
 
-<YoutubeLogo Width="40%" Height="40%"></YoutubeLogo>
+<div class="row justify-content-center w-100" style="max-height: 100% !important;">
+    <YoutubeLogo Width="40%" Height="auto"></YoutubeLogo>
 
-<form @onsubmit="@DownloadVideoFromURL" class="row justify-content-center w-100 px-4">
+    <form @onsubmit="@DownloadVideoFromURL" class="row justify-content-center w-100 px-4">
 
-    <div class="mb-4 col-12 row mt-4 px-0">
-        <InputText @bind-Value="YoutubeURLInputValue" class="form-control" placeholder="link do vídeo" id="youtubeURLToDownload" />
-    </div>
-
-    @if (!string.IsNullOrEmpty( videoURL ))
-    {
-        <div class="col-10">
-            <VideoThumbnail VideoMetaData="@videoMetadata" VideoURL="@videoURL"></VideoThumbnail>
+        <div class="mb-4 col-12 row mt-4 px-0">
+            <InputText @bind-Value="YoutubeURLInputValue" class="form-control" placeholder="link do vídeo" id="youtubeURLToDownload" />
         </div>
-    }
 
-    @if (isDownloading)
-    {
-        <button type="submit" class="btn btn-outline-danger col-3" disabled>
-            <i class="bi bi-broadcast"></i>
-            @downloadProgress.ToString()%
-        </button>
-    }
-    else
-    {
-        <button type="submit" class="btn btn-outline-danger col-5">
-            <i class="bi bi-shift-fill"></i>
-            Salvar
-        </button>
-    }
-</form>
+        @if (!string.IsNullOrEmpty( videoURL ))
+        {
+            <div class="col-12 p-0 row justify-content-center">
+                <VideoThumbnail VideoMetaData="@videoMetadata" VideoURL="@videoURL"></VideoThumbnail>
+            </div>
+        }
+
+        @if (isDownloading)
+        {
+            <button type="submit" class="btn btn-outline-danger col-6" disabled>
+                <i class="bi bi-broadcast"></i>
+                @downloadProgress.ToString()%
+            </button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-outline-danger col-12">
+                <i class="bi bi-shift-fill"></i>
+                Salvar
+            </button>
+        }
+    </form>
+</div>
 
 @code {
     public static int downloadProgress = 0;
