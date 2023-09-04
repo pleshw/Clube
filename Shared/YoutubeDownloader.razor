@@ -1,25 +1,31 @@
 ﻿@using Clube.Data
 @using System.Text.RegularExpressions;
+@using YoutubeExplode.Common;
 @implements IObserver<double>
 @inject YoutubeDownloaderService DownloaderService
 
+<YoutubeLogo Width="40%" Height="40%"></YoutubeLogo>
+
 <form @onsubmit="@DownloadVideoFromURL" class="row justify-content-center">
+
     <div class="mb-3 col-12 row mt-4 px-5">
         <InputText @bind-Value="YoutubeURLInputValue" class="form-control" placeholder="link do vídeo" id="youtubeURLToDownload" />
     </div>
 
-    @if (!string.IsNullOrEmpty( thumbURL ))
+    @if (!string.IsNullOrEmpty( videoURL ) && !string.IsNullOrEmpty( thumbURL ) && !string.IsNullOrEmpty( videoTitle ) )
     {
-        <img src="@thumbURL" class="p-5 img-fluid" />
+        <div class="col-10">
+            <VideoThumbnail ThumbURL="@thumbURL" VideoTitle="@videoTitle" VideoURL="@videoURL"></VideoThumbnail>
+        </div>
     }
 
     @if (isDownloading)
     {
-        <button type="submit" class="btn btn-outline-danger col-4" disabled>@downloadProgress.ToString()%</button>
+        <button type="submit" class="btn btn-outline-danger col-6" disabled>@downloadProgress.ToString()%</button>
     }
     else
     {
-        <button type="submit" class="btn btn-outline-danger col-4">Salvar</button>
+        <button type="submit" class="btn btn-outline-danger col-6">Salvar</button>
     }
 </form>
 
@@ -27,58 +33,57 @@
     public static int downloadProgress = 0;
 
     public static string thumbURL = "";
+    public static string videoTitle = "";
+    public static string videoURL = "";
 
     public static bool downloadCompleted = false;
     public static bool downloadError = false;
-
     public static bool isDownloading = false;
 
     public YoutubeDownloaderService? downloaderService;
     private string youtubeURLInputValue  = "";
 
-    private string YoutubeURLInputValue { get
+    private string YoutubeURLInputValue 
+    { 
+        get
         {
             return youtubeURLInputValue;
         }
         set
         {
             youtubeURLInputValue = value;
-
             InvokeAsync(DisplayThumbnailIfAvailable);
-        } }
-
-
+        } 
+    }
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        ClearForm();
         downloaderService = new YoutubeDownloaderService(new ProgressTracker(this));
         InvokeAsync( StateHasChanged );
     }
 
-    protected override void OnAfterRender( bool firstRender )
+    public void ClearForm()
     {
-        base.OnAfterRender( firstRender );
-        if (firstRender)
-        {
-            thumbURL = "";
-            downloadProgress = 0;
-            downloadCompleted = false;
-            downloadError = false;
-            isDownloading = false;
-            youtubeURLInputValue = "";
-        }
+        youtubeURLInputValue = "";
+        thumbURL = "";
+        videoTitle = "";
+        videoURL = "";
+        StateHasChanged();
     }
 
     public async Task DisplayThumbnailIfAvailable()
     {
-        thumbURL = "";
         if (!string.IsNullOrEmpty( youtubeURLInputValue ))
         {
             var regexYoutubeVideoUrl = new Regex(@"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|live\/|v\/)?)([\w\-]+)(\S+)?$");
             if (regexYoutubeVideoUrl.Match( youtubeURLInputValue ).Success)
             {
-                thumbURL = await downloaderService!.GetVideoThumbnail( youtubeURLInputValue );
+                var videoMetadata = await downloaderService!.GetVideoMetadata( youtubeURLInputValue );
+                thumbURL = videoMetadata.Thumbnails.GetWithHighestResolution().Url;
+                videoTitle = videoMetadata.Title;
+                videoURL = youtubeURLInputValue;
                 StateHasChanged();
             }
         }
@@ -96,14 +101,14 @@
     {
         isDownloading = false;
         downloadCompleted = true;
-        StateHasChanged();
+        ClearForm();
     }
 
     public void OnError( Exception error )
     {
         isDownloading = false;
         downloadError = true;
-        StateHasChanged();
+        ClearForm();
     }
 
     public void OnNext( double value )

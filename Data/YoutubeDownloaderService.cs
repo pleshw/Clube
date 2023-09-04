@@ -11,26 +11,33 @@ namespace Clube.Data
         public IStreamInfo Audio;
         public IVideoStreamInfo Video;
 
-        public bool IsValid()
+        public readonly bool IsValid()
         {
             return Audio != null || Video != null;
         }
 
-        public bool IsAudioOnly()
+        public readonly bool IsAudioOnly()
         {
             return Audio != null && Video == null;
         }
 
 
-        public bool IsVideoOnly()
+        public readonly bool IsVideoOnly()
         {
             return Audio == null && Video != null;
         }
     }
 
-    public class YoutubeDownloaderService
+    public partial class YoutubeDownloaderService
     {
-        public static readonly YoutubeClient youtubeClientInstance = new YoutubeClient();
+        public static readonly YoutubeClient youtubeClientInstance = new();
+
+        [GeneratedRegexAttribute( "^((?:https?:)?\\/\\/)?((?:www|m)\\.)?((?:youtube(-nocookie)?\\.com|youtu.be))(\\/(?:[\\w\\-]+\\?v=|embed\\/|live\\/|v\\/)?)([\\w\\-]+)(\\S+)?$" , RegexOptions.IgnoreCase )]
+        private static partial Regex _regexYoutubeVideoUrl();
+
+        [GeneratedRegexAttribute( "[^a-zA-Z]" , RegexOptions.IgnoreCase )]
+        private static partial Regex _regexOnlyLetters();
+
         private readonly IProgress<double> _progressTracker;
 
         public YoutubeDownloaderService( IProgress<double> progressTracker )
@@ -38,9 +45,20 @@ namespace Clube.Data
             _progressTracker = progressTracker;
         }
 
+
+        public static bool IsValidURL(string videoUrl )
+        {
+            return _regexYoutubeVideoUrl().Match( videoUrl ).Success;
+        }
+
+        public async Task<YoutubeExplode.Videos.Video> GetVideoMetadata( string videoUrl )
+        {
+            return await youtubeClientInstance.Videos.GetAsync( videoUrl );
+        }
+
         public async Task<string> GetVideoThumbnail( string videoUrl )
         {
-            YoutubeExplode.Videos.Video videoMetadata = await youtubeClientInstance.Videos.GetAsync( videoUrl );
+            YoutubeExplode.Videos.Video videoMetadata = await GetVideoMetadata( videoUrl );
             string thumbnailURL = videoMetadata.Thumbnails.GetWithHighestResolution().Url;
             return thumbnailURL;
         }
@@ -54,12 +72,10 @@ namespace Clube.Data
 
             YoutubeExplode.Videos.Video videoMetadata = await youtubeClientInstance.Videos.GetAsync( videoUrl );
             string videoTitle = videoMetadata.Title;
-
-            Regex regexOnlyLetters = new Regex( @"[^a-zA-Z]" );
             if (videoStreams.IsValid())
             {
                 var streamInfos = new IStreamInfo[] { videoStreams.Audio , videoStreams.Video };
-                var videoConverter = new ConversionRequestBuilder( $"YoutubeVideos/{regexOnlyLetters.Replace( videoTitle , "" )}.mp4" ).Build();
+                var videoConverter = new ConversionRequestBuilder( $"YoutubeVideos/{_regexOnlyLetters().Replace( videoTitle , "" )}.mp4" ).Build();
                 await youtubeClientInstance.Videos
                     .DownloadAsync(
                         streamInfos ,

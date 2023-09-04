@@ -1,0 +1,25 @@
+﻿<a class="mb-4 d-flex justify-content-center" target="_blank" href="@VideoURL" style="max-width: 400px;">
+    <div class="card m-0">
+        <img src="@ThumbURL" class="card-img-top" />
+        <div class="card-body">
+            <h5
+                class="card-title text-center text-truncate"
+                data-bs-toggle="popover" data-bs-placement="right"
+                data-bs-custom-class="custom-popover"
+                data-bs-title="@VideoTitle"
+                data-bs-trigger="hover focus"
+                data-bs-content="This popover is themed via CSS variables.">@VideoTitle</h5>
+        </div>
+    </div>
+</a>
+
+@code {
+    [Parameter]
+    public string? ThumbURL { get; set; }
+
+    [Parameter]
+    public string? VideoTitle  { get; set; }
+
+    [Parameter]
+    public string? VideoURL  { get; set; }
+}
