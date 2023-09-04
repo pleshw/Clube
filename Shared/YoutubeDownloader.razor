@@ -6,35 +6,40 @@
 
 <YoutubeLogo Width="40%" Height="40%"></YoutubeLogo>
 
-<form @onsubmit="@DownloadVideoFromURL" class="row justify-content-center">
+<form @onsubmit="@DownloadVideoFromURL" class="row justify-content-center w-100 px-4">
 
-    <div class="mb-3 col-12 row mt-4 px-5">
+    <div class="mb-4 col-12 row mt-4 px-0">
         <InputText @bind-Value="YoutubeURLInputValue" class="form-control" placeholder="link do vídeo" id="youtubeURLToDownload" />
     </div>
 
-    @if (!string.IsNullOrEmpty( videoURL ) && !string.IsNullOrEmpty( thumbURL ) && !string.IsNullOrEmpty( videoTitle ) )
+    @if (!string.IsNullOrEmpty( videoURL ))
     {
         <div class="col-10">
-            <VideoThumbnail ThumbURL="@thumbURL" VideoTitle="@videoTitle" VideoURL="@videoURL"></VideoThumbnail>
+            <VideoThumbnail VideoMetaData="@videoMetadata" VideoURL="@videoURL"></VideoThumbnail>
         </div>
     }
 
     @if (isDownloading)
     {
-        <button type="submit" class="btn btn-outline-danger col-6" disabled>@downloadProgress.ToString()%</button>
+        <button type="submit" class="btn btn-outline-danger col-3" disabled>
+            <i class="bi bi-broadcast"></i>
+            @downloadProgress.ToString()%
+        </button>
     }
     else
     {
-        <button type="submit" class="btn btn-outline-danger col-6">Salvar</button>
+        <button type="submit" class="btn btn-outline-danger col-5">
+            <i class="bi bi-shift-fill"></i>
+            Salvar
+        </button>
     }
 </form>
 
 @code {
     public static int downloadProgress = 0;
 
-    public static string thumbURL = "";
-    public static string videoTitle = "";
     public static string videoURL = "";
+    public YoutubeExplode.Videos.Video? videoMetadata;
 
     public static bool downloadCompleted = false;
     public static bool downloadError = false;
@@ -59,16 +64,13 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        downloaderService = new YoutubeDownloaderService( new ProgressTracker( this ) );
         ClearForm();
-        downloaderService = new YoutubeDownloaderService(new ProgressTracker(this));
-        InvokeAsync( StateHasChanged );
     }
 
     public void ClearForm()
     {
         youtubeURLInputValue = "";
-        thumbURL = "";
-        videoTitle = "";
         videoURL = "";
         StateHasChanged();
     }
@@ -80,9 +82,7 @@
             var regexYoutubeVideoUrl = new Regex(@"^((?:https?:)?\/\/)?((?:www|m)\.)?((?:youtube(-nocookie)?\.com|youtu.be))(\/(?:[\w\-]+\?v=|embed\/|live\/|v\/)?)([\w\-]+)(\S+)?$");
             if (regexYoutubeVideoUrl.Match( youtubeURLInputValue ).Success)
             {
-                var videoMetadata = await downloaderService!.GetVideoMetadata( youtubeURLInputValue );
-                thumbURL = videoMetadata.Thumbnails.GetWithHighestResolution().Url;
-                videoTitle = videoMetadata.Title;
+                videoMetadata = await downloaderService!.GetVideoMetadata( youtubeURLInputValue );
                 videoURL = youtubeURLInputValue;
                 StateHasChanged();
             }
