@@ -18,8 +18,7 @@
 }
 
 .clube-main-navbar {
-    background-image: linear-gradient(162deg, var(--pleshw-main-color), var(--drumon-main-color) 59%, var(--jujuba-main-color), var(--doofens-main-color) 90%);
-    height: 140px;
+    background: transparent;
 }
 
 .dropdown-menu > li{

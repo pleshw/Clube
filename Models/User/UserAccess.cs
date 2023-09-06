@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Home.Models.User;
+namespace Clube.Models.User;
 
 public class UserAccess
 {

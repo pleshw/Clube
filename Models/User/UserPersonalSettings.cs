@@ -1,4 +1,4 @@
-﻿namespace Home.Models.User;
+﻿namespace Clube.Models.User;
 
 public class UserPersonalSettings
 {
