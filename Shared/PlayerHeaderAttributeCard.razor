@@ -1,0 +1,17 @@
+﻿<div class="card text-center px-0 py-0 shadow-sm rounded-0">
+    <div class="card-header text-capitalize row w-100 px-0 m-0 text-center justify-content-center bg-transparent border-0">
+        <i class="@IconClass"></i>
+    </div>
+    <div class="card-body row justify-content-center py-2 align-items-center">
+        <input class="card-title fw-bolder text-center border-0 px-0 text-center col-6 font-monospace" value="@Value" />
+    </div>
+    <div class="card-footer py-2 bg-transparent">
+            @Title
+    </div>
+</div>
+
+@code {
+    [Parameter] public required string IconClass { get; set; }
+    [Parameter] public required string Title { get; set; }
+    [Parameter] public required string Value { get; set; }
+}

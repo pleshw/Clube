@@ -18,6 +18,11 @@ html, body {
     animation: floatingBackgroundAnimation 15s ease infinite;
 }
 
+.user-rpg-input-info {
+    color: var(--jujuba-main-color);
+    font-weight: bold;
+}
+
 h1:focus {
     outline: none;
 }
@@ -36,8 +41,16 @@ a, .btn-link {
     border-color: #1861ac;
 }
 
+.clube-gradient {
+    background-image: linear-gradient(162deg, var(--pleshw-main-color), var(--drumon-main-color) 59%, var(--jujuba-main-color), var(--doofens-main-color) 90%);
+}
+
 .text-pleshw {
     color: var(--pleshw-main-color) !important;
+}
+
+.bg-pleshw {
+    background: var(--pleshw-main-color) !important;
 }
 
 .highlight-pleshw:hover, .highlight-pleshw:active, .highlight-pleshw.active, .active .highlight-pleshw {
@@ -48,6 +61,10 @@ a, .btn-link {
     color: var(--drumon-main-color) !important;
 }
 
+.bg-drumon {
+    background: var(--drumon-main-color) !important;
+}
+
 .highlight-drumon:hover, .highlight-drumon:active, .highlight-drumon.active, .active .highlight-drumon {
     border-bottom: 2px dashed var(--drumon-main-color) !important;
 }
@@ -56,12 +73,20 @@ a, .btn-link {
     color: var(--doofens-main-color) !important;
 }
 
+.bg-doofens {
+    background: var(--doofens-main-color) !important;
+}
+
 .highlight-doofens:hover, .highlight-doofens:active, .highlight-doofens.active, .active .highlight-doofens {
     border-bottom: 2px dashed var(--doofens-main-color) !important;
 }
 
 .text-jujuba {
     color: var(--jujuba-main-color) !important;
+}
+
+.bg-jujuba {
+    background: var(--jujuba-main-color) !important;
 }
 
 .highlight-jujuba:hover, .highlight-jujuba:active, .highlight-jujuba.active, .active .highlight-jujuba {

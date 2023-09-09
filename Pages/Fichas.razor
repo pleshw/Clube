@@ -1,0 +1,139 @@
+﻿@page "/fichas"
+@using Clube.Data.RPG;
+@using System.ComponentModel.DataAnnotations;
+
+<PageTitle>Bem Vindo</PageTitle>
+
+<div class="row">
+    <div class="col-8">
+        @if (ResultadoSorteio != null)
+        {
+            <div class="container row shadow border-dark justify-content-center px-0">
+                <div class="row px-0 w-100 justify-content-center">
+                    <ProfileHeader Player="@ResultadoSorteio"></ProfileHeader>
+                </div>
+                <div class="row">
+                </div>
+            </div>
+        }
+    </div>
+    <div class="col-3 row justify-content-around container-fluid">
+        <div class="col-6 row justify-content-center mb-5">
+            <button @onclick="SortearBicho" class="btn btn-dark">Salvar Ficha</button>
+        </div>
+        <div class="col-10">
+            <div class="card text-center">
+                <div class="card-header row px-5 m-0 w-100 align-items-center justify-content-around align-items-center">
+                    <label class="col-6">Rolar Dados</label>
+                    <div>
+                        <output class="col-form-label">@NumDiceRolls</output>
+                        <span>d</span>
+                        <input type="number"
+                               style="width: 28px;"
+                               class="border-0 border-bottom border-1 border-dark text-center rounded-0 bg-transparent"
+                               value="20"
+                               min="2"
+                               max="20" />
+                    </div>
+
+
+                    <input id="numDicesToRoll"
+                    @oninput="SetNumDiceRolls"
+                           style="font-size: 12px;"
+                           type="range"
+                           class="col-3 form-range rounded-0 num-dice-rolls-custom-range"
+                           value="1"
+                           min="1"
+                           max="10"
+                           step="1" />
+                    <div class="row col-12 align-items-center justify-content-between w-100">
+                        <button class="btn btn-sm btn-outline-dark col-6 my-2">
+                            Rolar Dados
+                        </button>
+                        <div class="col-5 d-flex justify-content-between gap-1 user-select-none">
+                            <input id="checkAnimationDiceRoll" type="checkbox" class="" style="cursor: pointer;" checked />
+                            <label for="checkAnimationDiceRoll" class="fw-bold text-dark user-select-none" style="font-size: 13px; cursor: pointer;">Animação</label>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="list-group list-group-flush">
+                    @foreach (var rollCount in Enumerable.Range( 1 , NumDiceRolls ).ToList())
+                    {
+                        <li class="list-group-item">
+                            <span class="col-12">
+                                Rolagem @(rollCount):
+                                <span class="bg-dark p-1 text-white fw-bolder mx-5">?</span>
+                            </span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    Player? ResultadoSorteio;
+    RandomList<Player> sorteio = new RandomList<Player> { };
+
+    public int NumDiceRolls = 1;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        sorteio.Add( new Player
+            {
+                Name = "Jujuba" ,
+                Class = "Guerreiro" ,
+                Age = 20 ,
+                Race = "Humano" ,
+                ProfileImg = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png" ,
+                Attributes = new PlayerAttributes
+                {
+                    Strength = 5 ,
+                    Inteligence = 0
+                }
+            } );
+
+        sorteio.Add( new Player
+            {
+                Name = "Drumon" ,
+                Class = "Clérigo" ,
+                Age = 21 ,
+                Race = "Elfo" ,
+                ProfileImg = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" ,
+                Attributes = new PlayerAttributes
+                {
+                    Strength = 0 ,
+                    Inteligence = 2
+                }
+            } );
+
+        sorteio.Add( new Player
+            {
+                Name = "Doofens" ,
+                Class = "Mago" ,
+                Age = 18 ,
+                Race = "Humano" ,
+                ProfileImg = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png" ,
+                Attributes = new PlayerAttributes
+                {
+                    Strength = 0 ,
+                    Inteligence = 6
+                }
+            } );
+    }
+
+    public void SetNumDiceRolls( ChangeEventArgs changeEvent )
+    {
+        int.TryParse( (string)(changeEvent.Value ?? "1") , out NumDiceRolls );
+    }
+
+    public void SortearBicho()
+    {
+        ResultadoSorteio = sorteio.GetExceptLastResult();
+        StateHasChanged();
+    }
+}

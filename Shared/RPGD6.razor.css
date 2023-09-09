@@ -1,0 +1,183 @@
+﻿h1 {
+	font-family: Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+.dice-cube *{
+	box-sizing: content-box !important;
+}
+
+.dice-cube .front {
+	transform: translateZ(50px);
+}
+
+.dice-cube .back {
+	transform: rotateX(-180deg) translateZ(50px);
+}
+
+.dice-cube .right {
+	transform: rotateY(90deg) translateZ(50px);
+}
+
+.dice-cube .left {
+	transform: rotateY(-90deg) translateZ(50px);
+}
+
+.dice-cube .top {
+	transform: rotateX(90deg) translateZ(50px);
+}
+
+.dice-cube .bottom {
+	transform: rotateX(-90deg) translateZ(50px);
+}
+
+.dice-container {
+	width: 100px;
+	height: 100px;
+	position: relative;
+	margin: 0 auto 10px;
+	border: 1px solid #FFF;
+	perspective: 500px;
+	perspective-origin: 50% 100%;
+}
+
+.dice-cube {
+	width: 100%;
+	height: 100%;
+	top: 50px;
+	position: absolute;
+	transform-style: preserve-3d;
+	transition: transform 6s;
+}
+
+	.dice-cube:hover {
+		cursor: pointer;
+	}
+
+	.dice-cube div {
+		background: hsla(0, 100%, 25%, 0.9);
+		display: block;
+		position: absolute;
+		width: 100px;
+		height: 50px;
+		border: 2px solid #ab1a1a;
+		margin: 0 auto;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size: 500%;
+		text-align: center;
+		padding: 25px 0;
+	}
+
+.dot {
+	display: block;
+	position: absolute;
+	width: 15px;
+	height: 15px;
+	background: #fff;
+	border-radius: 15px;
+}
+
+.front .dot1 {
+	top: 42.5px;
+	left: 42.5px;
+}
+
+.back .dot1 {
+	top: 22.5px;
+	left: 22.5px;
+}
+
+.back .dot2 {
+	top: 62.5px;
+	left: 52.5px;
+}
+
+.right .dot1 {
+	top: 22.5px;
+	left: 22.5px;
+}
+
+.right .dot2 {
+	top: 42.5px;
+	left: 42.5px;
+}
+
+.right .dot3 {
+	top: 62.5px;
+	left: 62.5px;
+}
+
+.left .dot1 {
+	top: 22.5px;
+	left: 22.5px;
+}
+
+.left .dot2 {
+	top: 22.5px;
+	left: 62.5px;
+}
+
+.left .dot3 {
+	top: 62.5px;
+	left: 22.5px;
+}
+
+.left .dot4 {
+	top: 62.5px;
+	left: 62.5px;
+}
+
+.top .dot1 {
+	top: 22.5px;
+	left: 22.5px;
+}
+
+.top .dot2 {
+	top: 22.5px;
+	left: 62.5px;
+}
+
+.top .dot3 {
+	top: 42.5px;
+	left: 42.5px;
+}
+
+.top .dot4 {
+	top: 62.5px;
+	left: 22.5px;
+}
+
+.top .dot5 {
+	top: 62.5px;
+	left: 62.5px;
+}
+
+.bottom .dot1 {
+	top: 22.5px;
+	left: 22.5px;
+}
+
+.bottom .dot2 {
+	top: 22.5px;
+	left: 42.5px;
+}
+
+.bottom .dot3 {
+	top: 22.5px;
+	left: 62.5px;
+}
+
+.bottom .dot4 {
+	top: 62.5px;
+	left: 22.5px;
+}
+
+.bottom .dot5 {
+	top: 62.5px;
+	left: 42.5px;
+}
+
+.bottom .dot6 {
+	top: 62.5px;
+	left: 62.5px;
+}

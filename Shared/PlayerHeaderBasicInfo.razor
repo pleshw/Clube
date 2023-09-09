@@ -1,0 +1,26 @@
+﻿@using Clube.Data.RPG
+
+<div class="row justify-content-around align-items-center py-3">
+    <div class="col-3 p-3">
+        <img class="img-fluid rounded shadow border border-4 border-dark p-2" src="@Player.ProfileImg" />
+    </div>
+    <div class="gap-3 col-7 h-50 py-3 px-0 row text-center">
+        <div class="col-4">
+            <PlayerHeaderBasicInfoField Title="Nome" Value="@Player.Name"></PlayerHeaderBasicInfoField>
+        </div>
+        <div class="col-4">
+            <PlayerHeaderBasicInfoField Title="Classe" Value="@Player.Class"></PlayerHeaderBasicInfoField>
+        </div>
+        <div class="col-4">
+            <PlayerHeaderBasicInfoField Title="Idade" Value="@Player.Age.ToString()"></PlayerHeaderBasicInfoField>
+        </div>
+        <div class="col-4">
+            <PlayerHeaderBasicInfoField Title="Raça" Value="@Player.Race"></PlayerHeaderBasicInfoField>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public required Player Player { get; set; }
+}

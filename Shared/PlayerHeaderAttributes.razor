@@ -1,0 +1,14 @@
+﻿@using Clube.Data.RPG
+
+<div class="row justify-content-between gap-3">
+    <div class="col-4 py-0"  style="min-width: 165px;">
+        <PlayerHeaderAttributeCard IconClass="bi bi-person-up text-jujuba" Title="Vigor" Value="@Player.Attributes.Strength.ToString()"></PlayerHeaderAttributeCard>
+    </div>
+    <div class="col-4"  style="min-width: 165px;">
+        <PlayerHeaderAttributeCard IconClass="bi bi-mortarboard-fill text-pleshw" Title="Inteligência" Value="@Player.Attributes.Inteligence.ToString()"></PlayerHeaderAttributeCard>
+    </div>
+</div>
+
+@code {
+    [Parameter] public required Player Player { get; set; }
+}
