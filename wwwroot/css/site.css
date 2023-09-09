@@ -19,8 +19,9 @@ html, body {
 }
 
 .user-rpg-input-info {
-    color: var(--jujuba-main-color);
-    font-weight: bold;
+    color: var(--doofens-main-color);
+    font-weight: bolder;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 h1:focus {
