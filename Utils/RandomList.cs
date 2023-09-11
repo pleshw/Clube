@@ -33,5 +33,35 @@
 
             return lastResult = GetExcept( lastResult );
         }
+
+        public void FYatesShuffle()
+        {
+            int n = Count;
+            while (n > 1)
+            {
+                n--;
+                int k = _randomGenerator.Next( n + 1 );
+                T value = this[k];
+                this[k] = this[n];
+                this[n] = value;
+            }
+        }
+    }
+
+    public static class EnumerableExtensions
+    {
+        public static RandomList<T> ToRandomList<T>( this List<T> list )
+        {
+            RandomList<T> randomList = new RandomList<T>();
+            randomList.AddRange( list );
+            return randomList;
+        }
+
+        public static RandomList<T> ToRandomList<T>( this IEnumerable<T> list )
+        {
+            RandomList<T> randomList = new RandomList<T>();
+            randomList.AddRange( list );
+            return randomList;
+        }
     }
 }

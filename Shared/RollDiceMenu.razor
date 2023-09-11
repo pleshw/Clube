@@ -1,0 +1,128 @@
+﻿@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<div class="card text-center border-top-0 rounded-0">
+    <div class="card-header row px-5 m-0 w-100 align-items-center justify-content-around align-items-center">
+        <div>
+            <output class="col-form-label">@NumRolls</output>
+            <span>d</span>
+            <input 
+                type="number"
+                   style="width: 28px;"
+                   class="border-0 border-bottom border-1 border-dark text-center rounded-0 bg-transparent"
+                    @bind-value="DiceRollValue"
+                   min="2"
+                   max="20" />
+        </div>
+
+
+        <input id="numDicesToRoll"
+        @oninput="SetNumDiceRolls"
+               style="font-size: 12px;"
+               type="range"
+               class="col-3 form-range rounded-0 num-dice-rolls-custom-range"
+               value="1"
+               min="1"
+               max="10"
+               step="1" />
+        <div class="row col-12 align-items-center justify-content-between w-100">
+            <button class="btn btn-sm btn-outline-dark col-6 my-2" @onclick="ExecuteRoll">
+                Rolar
+            </button>
+            <div class="col-5 d-flex justify-content-between gap-1 user-select-none">
+                <input id="checkAnimationDiceRoll" type="checkbox" class="" style="cursor: pointer;" checked />
+                <label for="checkAnimationDiceRoll" class="fw-bold text-dark user-select-none" style="font-size: 13px; cursor: pointer;">Animação</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <ul class="list-group list-group-flush">
+            @foreach (var rollCount in Enumerable.Range( 1 , NumRolls ).ToList())
+            {
+                <li class="list-group-item">
+                    <span class="col-12">
+                        Rolagem @(rollCount):
+                        <span class="bg-dark p-1 text-white fw-bolder mx-5" id="diceRollNumber@(rollCount)">?</span>
+                    </span>
+                </li>
+            }
+        </ul>
+    </div>
+    @if (RollResults != null && RollResults.Count > 0)
+    {
+        <div class="card-footer accordion" id="accordionDiceRolResultsStatistics">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiceStatistics" aria-expanded="true" aria-controls="collapseDiceStatistics">
+                        Extras
+                    </button>
+                </h2>
+                <div id="collapseDiceStatistics" class="accordion-collapse collapse show" data-bs-parent="#accordionDiceRolResultsStatistics">
+                    <div class="accordion-body">
+                        <span>Soma: @RollResults.Sum()</span>
+                        <hr class="dropdown-divider">
+                        <span>Maior Resultado: @RollResults.Max()</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private IJSObjectReference? module;
+
+    public int NumRolls { get; set; } = 1;
+    public int DiceRollValue { get; set; } = 20;
+    public List<int>? RollResults;
+
+
+    protected override async Task OnAfterRenderAsync( bool firstRender )
+    {
+        await base.OnAfterRenderAsync( firstRender );
+
+        if (module is null)
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>( "import" , "./animations.js" );
+        }
+    }
+
+    public void SetNumDiceRolls( ChangeEventArgs changeEvent )
+    {
+        int tmpNumDiceRolls = 0;
+        if (int.TryParse( (string)(changeEvent.Value ?? "1") , out tmpNumDiceRolls ) && tmpNumDiceRolls > 0)
+        {
+            NumRolls = tmpNumDiceRolls;
+            StateHasChanged();
+        }
+    }
+
+    public async Task ExecuteRoll()
+    {
+        RollResults = new List<int>();
+
+        if (module is null)
+        {
+            module = await JS.InvokeAsync<IJSObjectReference>( "import" , "./animations.js" );
+        }
+
+        List<int> diceRollIndexes = Enumerable.Range(1, NumRolls).ToList();
+        RandomList<int> possibleValues = Enumerable.Range( 1 , DiceRollValue ).ToRandomList();
+
+        foreach (int num in diceRollIndexes)
+        {
+            int roll = possibleValues.GetRandom();
+            await module.InvokeVoidAsync( "animateNumberRollElement" , $"#diceRollNumber{num}" , roll );
+            RollResults.Add(roll);
+        }
+    }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        if (module is not null)
+        {
+            await module.DisposeAsync();
+        }
+    }
+}

@@ -19,55 +19,22 @@
     </div>
     <div class="col-3 row justify-content-around container-fluid">
         <div class="col-6 row justify-content-center mb-5">
-            <button @onclick="SortearBicho" class="btn btn-dark">Salvar Ficha</button>
+            <button @onclick="GetRandomPlayer" style="height: 40px;" class="btn btn-dark">Salvar Ficha</button>
         </div>
         <div class="col-10">
-            <div class="card text-center">
-                <div class="card-header row px-5 m-0 w-100 align-items-center justify-content-around align-items-center">
-                    <label class="col-6">Rolar Dados</label>
-                    <div>
-                        <output class="col-form-label">@NumDiceRolls</output>
-                        <span>d</span>
-                        <input type="number"
-                               style="width: 28px;"
-                               class="border-0 border-bottom border-1 border-dark text-center rounded-0 bg-transparent"
-                               value="20"
-                               min="2"
-                               max="20" />
-                    </div>
-
-
-                    <input id="numDicesToRoll"
-                    @oninput="SetNumDiceRolls"
-                           style="font-size: 12px;"
-                           type="range"
-                           class="col-3 form-range rounded-0 num-dice-rolls-custom-range"
-                           value="1"
-                           min="1"
-                           max="10"
-                           step="1" />
-                    <div class="row col-12 align-items-center justify-content-between w-100">
-                        <button class="btn btn-sm btn-outline-dark col-6 my-2">
+            <div class="accordion border-0 shadow" id="accordionHeaderFichas">
+                <div class="accordion-item border-0">
+                    <h2 class="accordion-header border-0">
+                        <button class="accordion-button rounded-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiceRolls" aria-expanded="true" aria-controls="collapseDiceRolls">
                             Rolar Dados
                         </button>
-                        <div class="col-5 d-flex justify-content-between gap-1 user-select-none">
-                            <input id="checkAnimationDiceRoll" type="checkbox" class="" style="cursor: pointer;" checked />
-                            <label for="checkAnimationDiceRoll" class="fw-bold text-dark user-select-none" style="font-size: 13px; cursor: pointer;">Animação</label>
+                    </h2>
+                    <div id="collapseDiceRolls" class="accordion-collapse collapse" data-bs-parent="#accordionHeaderFichas">
+                        <div class="accordion-body border-0 p-0">
+                            <RollDiceMenu></RollDiceMenu>
                         </div>
                     </div>
                 </div>
-
-                <ul class="list-group list-group-flush">
-                    @foreach (var rollCount in Enumerable.Range( 1 , NumDiceRolls ).ToList())
-                    {
-                        <li class="list-group-item">
-                            <span class="col-12">
-                                Rolagem @(rollCount):
-                                <span class="bg-dark p-1 text-white fw-bolder mx-5">?</span>
-                            </span>
-                        </li>
-                    }
-                </ul>
             </div>
         </div>
     </div>
@@ -77,8 +44,6 @@
 @code {
     Player? ResultadoSorteio;
     RandomList<Player> sorteio = new RandomList<Player> { };
-
-    public int NumDiceRolls = 1;
 
     protected override void OnInitialized()
     {
@@ -126,12 +91,7 @@
             } );
     }
 
-    public void SetNumDiceRolls( ChangeEventArgs changeEvent )
-    {
-        int.TryParse( (string)(changeEvent.Value ?? "1") , out NumDiceRolls );
-    }
-
-    public void SortearBicho()
+    public void GetRandomPlayer()
     {
         ResultadoSorteio = sorteio.GetExceptLastResult();
         StateHasChanged();
