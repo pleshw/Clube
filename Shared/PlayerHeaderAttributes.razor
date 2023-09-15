@@ -1,14 +1,31 @@
 ﻿@using Clube.Data.RPG
 
 <div class="row justify-content-between gap-3">
-    <div class="col-4 py-0"  style="min-width: 165px;">
-        <PlayerHeaderAttributeCard IconClass="bi bi-person-up text-jujuba" Title="Vigor" Value="@Player.Attributes.Strength.ToString()"></PlayerHeaderAttributeCard>
-    </div>
-    <div class="col-4"  style="min-width: 165px;">
-        <PlayerHeaderAttributeCard IconClass="bi bi-mortarboard-fill text-pleshw" Title="Inteligência" Value="@Player.Attributes.Inteligence.ToString()"></PlayerHeaderAttributeCard>
-    </div>
+    @foreach(PlayerAttribute attribute in Player.Attributes.Where(attr => attr.Type == AttributeType.PRIMARY))
+    {
+        <div class="col-4 py-0" style="min-width: 165px;">
+            <PlayerHeaderAttributeCard IconClassHandler="@IconClassHandler" Title="@(attribute.Name.ToString())" Value="@(attribute.Value.ToString())"></PlayerHeaderAttributeCard>
+        </div>
+    }
 </div>
 
 @code {
     [Parameter] public required Player Player { get; set; }
+
+    public string IconClassHandler(string attributeName)
+    {
+        switch (attributeName)
+        {
+            case "Força":
+            case "Vigor":
+            case "Strength":
+                return "bi bi-person-up text-jujuba";
+            case "Inteligencia":
+            case "Inteligência":
+            case "Intelligence":
+                return "bi bi-mortarboard-fill text-pleshw";
+            default:
+                return "";
+        }
+    }
 }

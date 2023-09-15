@@ -12,10 +12,13 @@ html, body {
     background-repeat: no-repeat;
     background-origin: border-box;
     background-size: cover;
-    height: 100vh;
+    min-height: 100vh;
+}
+
+main {
+    animation: floatingBackgroundAnimation 15s ease infinite;
     background-image: linear-gradient(162deg, var(--pleshw-main-color), var(--drumon-main-color) 59%, var(--jujuba-main-color), var(--doofens-main-color) 90%);
     background-size: 150% 150%;
-    animation: floatingBackgroundAnimation 15s ease infinite;
 }
 
 .user-rpg-input-info {

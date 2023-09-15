@@ -5,19 +5,16 @@
 
 <h3>Welcome to Your App</h3>
 
-@if (SpotifyUserContext.DisplayName != null)
+@if (SpotifyUserContext.CurrentUser != null)
 {
-    <p>User's Display Name: @SpotifyUserContext.DisplayName</p>
-    <p>User's Country: @SpotifyUserContext.Country</p>
+
+}
+else{
+    <a href="challenge-spotify" class="btn btn-success">Sign in with Spotify</a>
 }
 
-<a href="challenge-spotify" class="btn btn-success">Sign in with Spotify</a>
 
 
 @code {
-    private bool IsScopeGranted( string scope )
-    {
-        var authState = AuthenticationStateProvider.GetAuthenticationStateAsync().Result;
-        return authState.User.HasClaim( c => c.Type == "scope" && c.Value.Contains( scope ) );
-    }
+
 }

@@ -1,5 +1,5 @@
 ﻿export function loadPopover(elementId, videoTitle, channelTitle, duration) {
-    const popover = new bootstrap.Popover(document.getElementById(elementId),
+    new bootstrap.Popover(document.getElementById(elementId),
         {
             title: videoTitle,
             trigger: 'hover focus',

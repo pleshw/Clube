@@ -12,7 +12,6 @@ namespace Clube.Data.RPG
 
         public PlayerAttributes Attributes;
 
-
         public Player( )
         {
             Name = "";
@@ -31,6 +30,24 @@ namespace Clube.Data.RPG
             Race = race;
             ProfileImg = profileImg;
             Attributes = attributes;
+        }
+
+        public Player( PlayerAttributes attributes ): this()
+        {
+            Attributes = attributes;
+        }
+
+        public static Player GetEmpty()
+        {
+            return new Player
+            {
+                Name = "" ,
+                Class = "" ,
+                Age = 0 ,
+                Race = "" ,
+                ProfileImg = "" ,
+                Attributes = PlayerAttributes.ClubeAttributesTranslatedTemplate
+            };
         }
     }
 }

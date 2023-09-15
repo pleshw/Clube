@@ -6,32 +6,49 @@
 
 <div class="row">
     <div class="col-8">
-        @if (ResultadoSorteio != null)
+        @if (MainPlayer != null)
         {
-            <div class="container row shadow border-dark justify-content-center px-0">
-                <div class="row px-0 w-100 justify-content-center">
-                    <ProfileHeader Player="@ResultadoSorteio"></ProfileHeader>
+            <div class="bg-white container row shadow border-dark justify-content-center px-0 py-0 my-0">
+                <div class="row px-0 py-0 w-100 justify-content-center border-2 border-bottom">
+                    <ProfileHeader Player="@MainPlayer"></ProfileHeader>
                 </div>
-                <div class="row">
+                <div class="row py-4 px-5">
+                    <div class="row col-12">
+                        <div class="col-7 row justify-content-center py-3 px-0">
+                            <div class="row col-12">
+                                <ProfileAttributes Player="@MainPlayer"></ProfileAttributes>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <ProfileNotes></ProfileNotes>
+                        </div>
+                    </div>
                 </div>
             </div>
         }
     </div>
     <div class="col-3 row justify-content-around container-fluid">
-        <div class="col-6 row justify-content-center mb-5">
-            <button @onclick="GetRandomPlayer" style="height: 40px;" class="btn btn-dark">Salvar Ficha</button>
-        </div>
-        <div class="col-10">
-            <div class="accordion border-0 shadow" id="accordionHeaderFichas">
-                <div class="accordion-item border-0">
-                    <h2 class="accordion-header border-0">
-                        <button class="accordion-button rounded-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiceRolls" aria-expanded="true" aria-controls="collapseDiceRolls">
-                            Rolar Dados
-                        </button>
-                    </h2>
-                    <div id="collapseDiceRolls" class="accordion-collapse collapse" data-bs-parent="#accordionHeaderFichas">
-                        <div class="accordion-body border-0 p-0">
-                            <RollDiceMenu></RollDiceMenu>
+        <div class="row col-12" style="height: fit-content;">
+            <div class="col-12 row justify-content-center align-items-center" style="height: 200px;">
+                <div class="col-8 row justify-content-center mb-1">
+                    <button @onclick="ResetPlayer" style="height: 40px;" class="btn btn-dark">Nova Ficha</button>
+                </div>
+                <div class="col-8 row justify-content-center mb-5">
+                    <button @onclick="ResetPlayer" style="height: 40px;" class="btn btn-dark">Salvar Ficha</button>
+                </div>
+            </div>
+            <div class="col-10">
+                <div class="accordion border-0 shadow" id="accordionHeaderFichas">
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header border-0">
+                            <button class="accordion-button rounded-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiceRolls" aria-expanded="true" aria-controls="collapseDiceRolls">
+                                Rolar Dados
+                            </button>
+                        </h2>
+                        <div id="collapseDiceRolls" class="accordion-collapse collapse" data-bs-parent="#accordionHeaderFichas">
+                            <div class="accordion-body border-0 p-0">
+                                <RollDiceMenu></RollDiceMenu>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -42,58 +59,16 @@
 
 
 @code {
-    Player? ResultadoSorteio;
-    RandomList<Player> sorteio = new RandomList<Player> { };
+    Player MainPlayer = Player.GetEmpty();
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        sorteio.Add( new Player
-            {
-                Name = "Jujuba" ,
-                Class = "Guerreiro" ,
-                Age = 20 ,
-                Race = "Humano" ,
-                ProfileImg = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/004.png" ,
-                Attributes = new PlayerAttributes
-                {
-                    Strength = 5 ,
-                    Inteligence = 0
-                }
-            } );
-
-        sorteio.Add( new Player
-            {
-                Name = "Drumon" ,
-                Class = "Clérigo" ,
-                Age = 21 ,
-                Race = "Elfo" ,
-                ProfileImg = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/001.png" ,
-                Attributes = new PlayerAttributes
-                {
-                    Strength = 0 ,
-                    Inteligence = 2
-                }
-            } );
-
-        sorteio.Add( new Player
-            {
-                Name = "Doofens" ,
-                Class = "Mago" ,
-                Age = 18 ,
-                Race = "Humano" ,
-                ProfileImg = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png" ,
-                Attributes = new PlayerAttributes
-                {
-                    Strength = 0 ,
-                    Inteligence = 6
-                }
-            } );
     }
 
-    public void GetRandomPlayer()
+    public void ResetPlayer()
     {
-        ResultadoSorteio = sorteio.GetExceptLastResult();
+        MainPlayer = Player.GetEmpty();
         StateHasChanged();
     }
 }
