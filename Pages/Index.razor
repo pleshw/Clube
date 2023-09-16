@@ -1,20 +1,7 @@
 ﻿@page "/"
 
-@inject AuthenticationStateProvider AuthenticationStateProvider
-@inject SpotifyUserContext SpotifyUserContext
 
-<h3>Welcome to Your App</h3>
-
-@if (SpotifyUserContext.CurrentUser != null)
-{
-
-}
-else{
-    <a href="challenge-spotify" class="btn btn-success">Sign in with Spotify</a>
-}
-
-
+<SpotifyPlayer></SpotifyPlayer>
 
 @code {
-
 }

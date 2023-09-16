@@ -1,10 +1,29 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+* img{
+    image-rendering: optimizeQuality !important;
+}
+
 :root {
     --pleshw-main-color: #4b248f;
     --doofens-main-color: #cf7ac2;
     --drumon-main-color: #ed944d;
     --jujuba-main-color: #fa8282;
+    --spotify-white: #FFFFFF;
+    --spotify-green: #1DB954;
+    --spotify-black: #191414;
+}
+
+.text-spotify-green {
+    color: var(--spotify-green);
+}
+
+.text-spotify-black {
+    color: var(--spotify-black);
+}
+
+.text-spotify-white {
+    color: var(--spotify-white);
 }
 
 html, body {
@@ -18,7 +37,8 @@ html, body {
 main {
     animation: floatingBackgroundAnimation 15s ease infinite;
     background-image: linear-gradient(162deg, var(--pleshw-main-color), var(--drumon-main-color) 59%, var(--jujuba-main-color), var(--doofens-main-color) 90%);
-    background-size: 150% 150%;
+    background-size: 250% 250%;
+    min-height: 100vh;
 }
 
 .user-rpg-input-info {

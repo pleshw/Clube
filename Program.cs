@@ -49,7 +49,6 @@ void ConfigureServices( IServiceCollection services , IConfiguration configurati
     services.AddAuthorizationCore();
     services.AddRazorPages();
     services.AddServerSideBlazor();
-    services.AddSingleton<WeatherForecastService>();
     services.AddTransient<IObserver<double> , YoutubeDownloader>();
     services.AddTransient<IProgress<double> , ProgressTracker>();
     services.AddSingleton<YoutubeDownloaderService>();
@@ -101,23 +100,17 @@ void ConfigureServices( IServiceCollection services , IConfiguration configurati
         {
             OnCreatingTicket = async context =>
             {
-                HttpRequestMessage request = new HttpRequestMessage( HttpMethod.Get , "https://api.spotify.com/v1/me" );
-                request.Headers.Add( "Accept" , "application/json" );
-                request.Headers.Add( "Authorization" , $"Bearer {context.AccessToken}" );
-
-                HttpClient client = context.Backchannel;
-                HttpResponseMessage response = await client.SendAsync( request , context.HttpContext.RequestAborted );
-                string spotifyRequestResult = await response.Content.ReadAsStringAsync();
-
-                if (response.IsSuccessStatusCode && !string.IsNullOrEmpty( spotifyRequestResult ))
+                if (string.IsNullOrEmpty( context.AccessToken ))
                 {
-                    SpotifyUserContext? user = JsonSerializer.Deserialize<SpotifyUserContext>( spotifyRequestResult );
+                    return;
+                }
 
-                    if (user is not null && context.Identity is not null)
-                    {
-                        SpotifyUserContext? spotifyUserContext = context.HttpContext.RequestServices.GetRequiredService<SpotifyUserContext>();
-                        spotifyUserContext.ReplaceWith(context.Principal, user );
-                    }
+                if (context.Identity is not null)
+                {
+                    SpotifyUserContext? userContextUpdated = await context.Backchannel.GetSpotiftUserContext( context.AccessToken );
+
+                    SpotifyUserContext? spotifyUserContextOld = context.HttpContext.RequestServices.GetRequiredService<SpotifyUserContext>();
+                    spotifyUserContextOld.ReplaceWith( context.Principal , context.AccessToken , userContextUpdated );
                 }
             }
         };

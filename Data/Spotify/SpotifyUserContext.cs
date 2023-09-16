@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using Microsoft.Win32.SafeHandles;
+using System.Security.Claims;
 using System.Text.Json.Serialization;
 
 public interface IUserContext
@@ -8,6 +9,7 @@ public interface IUserContext
 
 public class SpotifyUserContext : IUserContext
 {
+    public string? AccessToken { get; set; }
     public ClaimsPrincipal? CurrentUser { get; set; }
 
     [JsonPropertyName( "country" )]
@@ -46,13 +48,14 @@ public class SpotifyUserContext : IUserContext
     [JsonPropertyName( "uri" )]
     public string? URI { get; set; }
 
-    public SpotifyUserContext ReplaceWith( ClaimsPrincipal? userPrincipal, SpotifyUserContext? user )
+    public SpotifyUserContext ReplaceWith( ClaimsPrincipal? userPrincipal, string? accessToken,  SpotifyUserContext? user )
     {
-        if ( user == null || userPrincipal == null)
+        if ( user == null || userPrincipal == null || string.IsNullOrEmpty(accessToken))
         {
             return this;
         }
 
+        AccessToken = accessToken;
         CurrentUser = userPrincipal;
         Country = user.Country;
         DisplayName = user.DisplayName;
