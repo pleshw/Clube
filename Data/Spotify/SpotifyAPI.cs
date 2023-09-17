@@ -31,7 +31,7 @@ namespace Clube.Data.Spotify
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
 
-    public static async Task<SpotifyUserContext?> GetSpotiftUserContext( this HttpClient client , string accessToken )
+    public static async Task<SpotifyUserContext?> GetSpotifyUserContext( this HttpClient client , string accessToken )
         {
             return await Request<SpotifyUserContext>(
                     accessToken ,

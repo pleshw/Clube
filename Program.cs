@@ -9,6 +9,11 @@ using Microsoft.Extensions.Options;
 using System.Security.Claims;
 using System.Text.Json;
 using static Clube.Shared.YoutubeDownloader;
+using BlazorWebAssemblySignalRApp.Server.Hubs;
+using Microsoft.AspNetCore.ResponseCompression;
+using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics.Metrics;
+using System;
 
 var builder = WebApplication.CreateBuilder( args );
 
@@ -34,6 +39,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<SpotifyHub>( "/spotifyhub" );
 app.MapBlazorHub();
 app.MapFallbackToPage( "/_Host" );
 
@@ -42,6 +48,13 @@ app.Run();
 
 void ConfigureServices( IServiceCollection services , IConfiguration configuration )
 {
+
+    services.AddSignalR();
+    services.AddResponseCompression( opts =>
+    {
+        opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+           new[] { "application/octet-stream" } );
+    } );
     services.AddOptions();
     services.AddHttpContextAccessor();
     services.AddSession();
@@ -52,7 +65,6 @@ void ConfigureServices( IServiceCollection services , IConfiguration configurati
     services.AddTransient<IObserver<double> , YoutubeDownloader>();
     services.AddTransient<IProgress<double> , ProgressTracker>();
     services.AddSingleton<YoutubeDownloaderService>();
-    services.AddSingleton<SpotifyUserContext>();
 
     SpotifyCredentialsProvider? spotifyCredentialsProvider = new SpotifyCredentialsProvider( configuration );
     services.AddSingleton( provider => spotifyCredentialsProvider );
@@ -107,10 +119,19 @@ void ConfigureServices( IServiceCollection services , IConfiguration configurati
 
                 if (context.Identity is not null)
                 {
-                    SpotifyUserContext? userContextUpdated = await context.Backchannel.GetSpotiftUserContext( context.AccessToken );
+                    SpotifyUserContext? userContextUpdated = await context.Backchannel.GetSpotifyUserContext( context.AccessToken );
 
-                    SpotifyUserContext? spotifyUserContextOld = context.HttpContext.RequestServices.GetRequiredService<SpotifyUserContext>();
-                    spotifyUserContextOld.ReplaceWith( context.Principal , context.AccessToken , userContextUpdated );
+                    ClaimsIdentity? claimsIdentity = (ClaimsIdentity?)context.Principal?.Identity;
+
+                    claimsIdentity?.AddClaim( new Claim( "spotifyAccessToken" , context.AccessToken ) );
+                    claimsIdentity?.AddClaim( new Claim( "spotifyCountry" , userContextUpdated?.Country  ?? "") );
+                    claimsIdentity?.AddClaim( new Claim( "spotifyDisplayName" , userContextUpdated?.DisplayName ?? "" ) );
+                    claimsIdentity?.AddClaim( new Claim( "spotifyEmail" , userContextUpdated?.Email  ?? "" ) );
+                    claimsIdentity?.AddClaim( new Claim( "spotifyHref" , userContextUpdated?.Href  ?? "" ) );
+                    claimsIdentity?.AddClaim( new Claim( "spotifyId" , userContextUpdated?.Id  ?? "" ) );
+                    claimsIdentity?.AddClaim( new Claim( "spotifyType" , userContextUpdated?.Type ?? "" ) );
+                    claimsIdentity?.AddClaim( new Claim( "spotifyUri" , userContextUpdated?.URI ?? "" ) );
+                    claimsIdentity?.AddClaim( new Claim( "spotifyProduct" , userContextUpdated?.Product ?? "" ) );
                 }
             }
         };
