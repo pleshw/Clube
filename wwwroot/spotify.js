@@ -7,6 +7,10 @@
 }
 
 export function setSpotifyPlayerListeners(spotifyPlayer) {
+    spotifyPlayer.addListener('ready', ({ device_id }) => {
+        DotNet.invokeMethodAsync('Clube', 'SetSpotifyDeviceId', device_id);
+    });
+
     spotifyPlayer.addListener('not_ready', ({ device_id }) => {
         console.log('Você saiu do Spotify', device_id);
     });
@@ -65,5 +69,7 @@ export function disconnectSpotifyPlayer(spotifyPlayer) {
 }
 
 export function play(spotifyPlayer) {
-    spotifyPlayer.togglePlay();
+    DotNet.invokeMethodAsync('Clube', 'TransferPlaybackToPlayerJS').then(() => {
+        spotifyPlayer.togglePlay();
+    });
 }
