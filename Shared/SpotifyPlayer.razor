@@ -6,17 +6,6 @@
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpClientFactory ClientFactory
 
-
-@if (claims.Count() > 0)
-{
-    <ul>
-        @foreach (var claim in claims)
-        {
-            <li>@claim.Type: @claim.Value</li>
-        }
-    </ul>
-}
-
 @if (userSpotifyClaim == null || !userSpotifyClaim.IsAuthenticated)
 {
     <div class="row justify-content-center align-content-center w-100 m-0 p-5">
@@ -59,10 +48,6 @@ else
 
     private static SpotifyWebPlaybackTrack? CurrentTrack;
     private static Timer? _timer;
-
-    private string? authMessage;
-    private string? surname;
-    private IEnumerable<Claim> claims = Enumerable.Empty<Claim>();
 
     public static string? AccessToken;
 
