@@ -24,7 +24,12 @@ else
                 </a>
             </div>
             <div class="col-6">
-                <span style="font-size: 14px;" class="text-white fw-bold">@CurrentTrack?.Name</span>
+                @if(CurrentTrack != null)
+                {
+                    <a target="_blank" class="text-decoration-none" href="@CurrentTrack.Uri">
+                        <span style="font-size: 14px;" class="text-white fw-bold">@CurrentTrack.Name</span>
+                    </a>
+                }
             </div>
         </div>
         <div class="row col-2 justify-content-start align-items-center">
@@ -81,13 +86,9 @@ else
             spotifyModule = await JS.InvokeAsync<IJSObjectReference>( "import" , "./spotify.js" );
         }
 
-        if (firstRender && !string.IsNullOrEmpty( AccessToken ))
+        if (firstRender && !string.IsNullOrEmpty( AccessToken ) && spotifyJSInterop is not null)
         {
-            if (spotifyJSInterop is not null)
-            {
-                spotifyPlayer = await spotifyJSInterop.InitSpotifyPlayer( AccessToken , spotifyModule );
-            }
-
+            spotifyPlayer = await spotifyJSInterop.InitSpotifyPlayer( AccessToken , spotifyModule );
             await TransferPlaybackToPlayer();
 
             _timer = new System.Threading.Timer( async ( object? stateInfo ) =>
