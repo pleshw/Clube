@@ -5,22 +5,17 @@
 <PageTitle>Bem Vindo</PageTitle>
 
 <div class="row">
-    <div class="col-8">
+    <div class="col-5">
         @if (MainPlayer != null)
         {
             <div class="bg-white container row shadow border-dark justify-content-center px-0 py-0 my-0">
                 <div class="row px-0 py-0 w-100 justify-content-center border-2 border-bottom">
                     <ProfileHeader Player="@MainPlayer"></ProfileHeader>
                 </div>
-                <div class="row py-4 px-5">
-                    <div class="row col-12">
-                        <div class="col-7 row justify-content-center px-0">
-                            <div class="row col-12">
-                                <ProfileAttributes Player="@MainPlayer"></ProfileAttributes>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <ProfileNotes></ProfileNotes>
+                <div class="row col-12 mt-4 justify-content-center">
+                    <div class="col-12 row justify-content-center px-0">
+                        <div class="row col-12">
+                            <ProfileAttributes Player="@MainPlayer"></ProfileAttributes>
                         </div>
                     </div>
                 </div>
@@ -28,7 +23,7 @@
         }
     </div>
     <div class="col-3 row justify-content-around container-fluid">
-        <div class="row col-12" style="height: fit-content;">
+        <div class="row col-12 gap-3" style="height: fit-content;">
             <div class="col-12 row justify-content-center align-items-center" style="height: 200px;">
                 <div class="col-8 row justify-content-center mb-1">
                     <button @onclick="ResetPlayer" style="height: 40px;" class="btn btn-dark">Nova Ficha</button>
@@ -37,17 +32,33 @@
                     <button @onclick="ResetPlayer" style="height: 40px;" class="btn btn-dark">Salvar Ficha</button>
                 </div>
             </div>
-            <div class="col-10">
-                <div class="accordion border-0 shadow" id="accordionHeaderFichas">
-                    <div class="accordion-item border-0">
+            <div class="row col-12">
+                <div class="accordion border-0" id="accordionHeaderFichas">
+                    <div class="accordion-item border-0  rounded-0 ">
                         <h2 class="accordion-header border-0">
                             <button class="accordion-button rounded-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiceRolls" aria-expanded="true" aria-controls="collapseDiceRolls">
                                 Rolar Dados
                             </button>
                         </h2>
                         <div id="collapseDiceRolls" class="accordion-collapse collapse" data-bs-parent="#accordionHeaderFichas">
-                            <div class="accordion-body border-0 p-0">
+                            <div class="accordion-body  rounded-0  border-0 p-0">
                                 <RollDiceMenu></RollDiceMenu>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row col-12">
+                <div class="accordion border-0" id="accordionHeaderPlayerUtils">
+                    <div class="accordion-item border-0  rounded-0 ">
+                        <h2 class="accordion-header border-0">
+                            <button class="accordion-button rounded-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlayerNotes" aria-expanded="true" aria-controls="collapsePlayerNotes">
+                                Anotações
+                            </button>
+                        </h2>
+                        <div id="collapsePlayerNotes" class="accordion-collapse collapse" data-bs-parent="#accordionHeaderPlayerUtils">
+                            <div class="accordion-body  rounded-0  border-0 p-0">
+                                <ProfileNotes></ProfileNotes>
                             </div>
                         </div>
                     </div>

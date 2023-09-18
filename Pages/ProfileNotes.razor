@@ -1,6 +1,22 @@
-<div class="card text-center shadow-sm rounded-0 user-select-none" style="height:600px;">
-    <textarea class="form-control-plaintext p-3 h-100 text-dark" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" placeholder="Anotações..."></textarea>
+
+<div class="row w-100 m-0" style="user-select: none !important;">
+    <div class="col-12 card text-center shadow-sm rounded-0 user-select-none" style="height:150px;">
+        <textarea class="form-control-plaintext p-3 h-100 text-dark" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" placeholder="Anotações..."></textarea>
+    </div>
+
+    <div class="col-12 rounded-0 d-flex align-items-center justify-content-center">
+        <div class="form-control border-0 d-flex align-items-center" style="cursor: pointer;">
+            <input class="mx-3" style="cursor: pointer;" id="savePlayerNotesOnEnter" type="checkbox" />
+            <label style="cursor: pointer;" for="savePlayerNotesOnEnter">Salvar quando apertar enter</label>
+        </div>
+        <div class="form-control border-0 d-flex justify-content-center align-items-center row" style="cursor: pointer;">
+            <button class="btn btn-dark btn-sm col-6">
+                Salvar
+            </button>
+        </div>
+    </div>
 </div>
+
 
 @code {
 

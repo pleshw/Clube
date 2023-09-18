@@ -1,9 +1,12 @@
 @using Clube.Data.RPG
 
-    <div class="row justify-content-center">
+<div class="row justify-content-center">
+    <div class="col-12 row justify-content-center mb-4">
+        <PlayerHeaderAttributes Player="Player"></PlayerHeaderAttributes>
+    </div>
         @foreach (PlayerAttribute attribute in Player.Attributes.Where( attr => attr.Type == AttributeType.SECONDARY ).OrderBy( attr => -attr.Name.Length ))
         {
-        <div class="col-6 mb-4">
+        <div class="col-3 mb-4">
                 <PlayerHeaderAttributeCard IconClassHandler="@IconClassHandler" Title="@(attribute.Name.ToString())" Value="@(attribute.Value.ToString())"></PlayerHeaderAttributeCard>
             </div>
         }

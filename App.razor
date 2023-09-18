@@ -2,6 +2,9 @@
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+        <div class="container row" style="position: fixed; bottom: 0; right:0; width: 450px;">
+            <SpotifyPlayer></SpotifyPlayer>
+        </div>
     </Found>
     <NotFound>
         <PageTitle>Not found</PageTitle>

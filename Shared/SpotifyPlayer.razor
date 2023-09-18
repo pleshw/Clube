@@ -70,8 +70,16 @@ else
         await base.OnInitializedAsync();
 
         var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        userSpotifyClaim = authState.User.Identities.Where( i => i.IsAuthenticated && i.AuthenticationType == "Spotify" ).FirstOrDefault();
-        AccessToken = authState.User.FindFirst("spotifyAccessToken")?.Value;
+
+        var spotifyTokenExpirationClaim = authState.User.FindFirst( "spotifyAccessTokenExpiration" );
+        if (spotifyTokenExpirationClaim != null && DateTime.TryParse( spotifyTokenExpirationClaim.Value , out var expirationTime ))
+        {
+            if (expirationTime >= DateTime.UtcNow)
+            {
+                userSpotifyClaim = authState.User.Identities.Where(i => i.IsAuthenticated && i.AuthenticationType == "Spotify").FirstOrDefault();
+                AccessToken = authState.User.FindFirst("spotifyAccessToken")?.Value;
+            }
+        }
         spotifyJSInterop = new();
 
         _component = this;
@@ -102,7 +110,7 @@ else
                 {
                     _timer?.Dispose();
                 }
-            } , new System.Threading.AutoResetEvent( false ) , 1000 , 1000 );
+            } , new System.Threading.AutoResetEvent( false ) , 200 , 200 );
         }
     }
 

@@ -102,11 +102,6 @@ void ConfigureServices( IServiceCollection services , IConfiguration configurati
         options.Scope.Add( "user-library-read" );
         options.Scope.Add( "user-read-email" );
         options.Scope.Add( "user-read-private" );
-        //options.Scope.Add( "user-soa-link" );
-        //options.Scope.Add( "user-soa-unlink" );
-        //options.Scope.Add( "user-manage-entitlements" );
-        //options.Scope.Add( "user-manage-partner" );
-        //options.Scope.Add( "user-create-partner" );
 
         options.Events = new OAuthEvents
         {
@@ -123,6 +118,11 @@ void ConfigureServices( IServiceCollection services , IConfiguration configurati
 
                     ClaimsIdentity? claimsIdentity = (ClaimsIdentity?)context.Principal?.Identity;
 
+                    string expirationTime = context.ExpiresIn != null
+                        ? DateTime.UtcNow.AddSeconds( context.ExpiresIn.Value.TotalSeconds ).ToString()
+                        : DateTime.UtcNow.AddHours(1).ToString();
+
+                    claimsIdentity?.AddClaim( new Claim( "spotifyAccessTokenExpiration" , expirationTime ) );
                     claimsIdentity?.AddClaim( new Claim( "spotifyAccessToken" , context.AccessToken ) );
                     claimsIdentity?.AddClaim( new Claim( "spotifyCountry" , userContextUpdated?.Country  ?? "") );
                     claimsIdentity?.AddClaim( new Claim( "spotifyDisplayName" , userContextUpdated?.DisplayName ?? "" ) );
