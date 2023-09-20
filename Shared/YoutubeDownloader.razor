@@ -86,9 +86,10 @@
             {
                 videoMetadata = await downloaderService!.GetVideoMetadata( youtubeURLInputValue );
                 videoURL = youtubeURLInputValue;
-                StateHasChanged();
             }
         }
+
+        StateHasChanged();
     }
 
     public async Task DownloadVideoFromURL()
