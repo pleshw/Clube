@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Clube.Data.Spotify
 {
-    public class SpotifyWebPlaybackState
+    public record class SpotifyWebPlaybackState
     {
         [JsonPropertyName( "context" )]
         public SpotifyWebPlaybackContext? Context { get; set; }
@@ -28,7 +28,7 @@ namespace Clube.Data.Spotify
         public SpotifyWebPlaybackTrackWindow? TrackWindow { get; set; }
     }
 
-    public class SpotifyWebPlaybackContext
+    public record class SpotifyWebPlaybackContext
     {
         [JsonPropertyName( "uri" )]
         public string? Uri { get; set; }
@@ -37,7 +37,7 @@ namespace Clube.Data.Spotify
         public Dictionary<string , object>? Metadata { get; set; }
     }
 
-    public class SpotifyWebPlaybackDisallows
+    public record class SpotifyWebPlaybackDisallows
     {
         [JsonPropertyName( "pausing" )]
         public bool? Pausing { get; set; }
@@ -61,7 +61,7 @@ namespace Clube.Data.Spotify
         public bool? SkippingPrev { get; set; }
     }
 
-    public class SpotifyWebPlaybackTrackWindow
+    public record class SpotifyWebPlaybackTrackWindow
     {
         [JsonPropertyName( "current_track" )]
         public SpotifyWebPlaybackTrack? CurrentTrack { get; set; }

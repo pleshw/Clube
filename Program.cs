@@ -114,7 +114,7 @@ void ConfigureServices( IServiceCollection services , IConfiguration configurati
 
                 if (context.Identity is not null)
                 {
-                    SpotifyUserContext? userContextUpdated = await context.Backchannel.GetSpotifyUserContext( context.AccessToken );
+                    SpotifyUser? userContextUpdated = await context.Backchannel.GetSpotifyUser( context.AccessToken );
 
                     ClaimsIdentity? claimsIdentity = (ClaimsIdentity?)context.Principal?.Identity;
 

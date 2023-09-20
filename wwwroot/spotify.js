@@ -43,12 +43,7 @@ export function setSpotifyPlayerListeners(spotifyPlayer) {
 
 export function getCurrentStateSpotifyPlayer(spotifyPlayer) {
     spotifyPlayer.getCurrentState().then(state => {
-        DotNet.invokeMethodAsync('Clube', 'SpotifyStateHasChanged', state)
-            .then(success => {
-                if (!success) {
-                    console.warn("Falha ao atualizar status do Spotify!");
-                }
-            });
+        DotNet.invokeMethodAsync('Clube', 'SpotifyStateHasChanged', state);
     });
 }
 
@@ -69,7 +64,15 @@ export function disconnectSpotifyPlayer(spotifyPlayer) {
 }
 
 export function play(spotifyPlayer) {
-    DotNet.invokeMethodAsync('Clube', 'TransferPlaybackToPlayerJS').then(() => {
-        spotifyPlayer.togglePlay();
+    DotNet.invokeMethodAsync('Clube', 'TransferPlaybackToPlayerJS').then(shouldPlay => {
+        if (shouldPlay) {
+            spotifyPlayer.resume();
+        } else {
+            spotifyPlayer.pause();
+        }
     });
+}
+
+export function pause(spotifyPlayer) {
+    spotifyPlayer.pause();
 }

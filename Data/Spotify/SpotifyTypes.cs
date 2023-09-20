@@ -3,6 +3,47 @@
 namespace Clube.Data.Spotify
 {
 
+    public class SpotifyUser
+    {
+        [JsonPropertyName( "country" )]
+        public string? Country { get; set; }
+
+        [JsonPropertyName( "display_name" )]
+        public string? DisplayName { get; set; }
+
+        [JsonPropertyName( "email" )]
+        public string? Email { get; set; }
+
+        [JsonPropertyName( "explicit_content" )]
+        public SpotifyExplicitContent? ExplicitContent { get; set; }
+
+        [JsonPropertyName( "external_urls" )]
+        public SpotifyExternalUrls? ExternalURLs { get; set; }
+
+        [JsonPropertyName( "followers" )]
+        public SpotifyFollowers? Followers { get; set; }
+
+        [JsonPropertyName( "href" )]
+        public string? Href { get; set; }
+
+        [JsonPropertyName( "id" )]
+        public string? Id { get; set; }
+
+        [JsonPropertyName( "images" )]
+        public SpotifyImage[]? Images { get; set; }
+
+        [JsonPropertyName( "product" )]
+        public string? Product { get; set; }
+
+        [JsonPropertyName( "type" )]
+        public string? Type { get; set; }
+
+        [JsonPropertyName( "uri" )]
+        public string? URI { get; set; }
+    }
+
+
+
     public class SpotifyPlaybackState
     {
         [JsonPropertyName( "device" )]
@@ -54,28 +95,46 @@ namespace Clube.Data.Spotify
         }
     }
 
+    public class SpotifyRestrictions
+    {
+        [JsonPropertyName( "reason" )]
+        public string? Reason { get; set; }
+    }
+    public class SpotifyExplicitContent
+    {
+        [JsonPropertyName( "filter_enabled" )]
+        public bool Enabled { get; set; }
+
+        [JsonPropertyName( "filter_locked" )]
+        public bool Locked { get; set; }
+    }
+
     public class SpotifyExternalUrls
     {
         [JsonPropertyName( "spotify" )]
         public string? Spotify { get; set; }
     }
 
-    public class SpotifyRestrictions
+    public class SpotifyFollowers
     {
-        [JsonPropertyName( "reason" )]
-        public string? Reason { get; set; }
+        [JsonPropertyName( "href" )]
+        public string? Href { get; set; }
+
+        [JsonPropertyName( "total" )]
+        public int? Total { get; set; }
     }
 
-    public class SpotifyImages
+
+    public class SpotifyImage
     {
         [JsonPropertyName( "url" )]
-        public string? Url { get; set; }
-
-        [JsonPropertyName( "height" )]
-        public int? Height { get; set; }
+        public string? URL { get; set; }
 
         [JsonPropertyName( "width" )]
         public int? Width { get; set; }
+
+        [JsonPropertyName( "height" )]
+        public int? Height { get; set; }
     }
 
     public class SpotifyArtists
@@ -97,51 +156,6 @@ namespace Clube.Data.Spotify
 
         [JsonPropertyName( "uri" )]
         public string? Uri { get; set; }
-    }
-
-    public class SpotifyAlbum
-    {
-        [JsonPropertyName( "album_type" )]
-        public string? AlbumType { get; set; }
-
-        [JsonPropertyName( "total_tracks" )]
-        public int? TotalTracks { get; set; }
-
-        [JsonPropertyName( "available_markets" )]
-        public List<string>? AvailableMarkets { get; set; }
-
-        [JsonPropertyName( "external_urls" )]
-        public SpotifyExternalUrls? ExternalUrls { get; set; }
-
-        [JsonPropertyName( "href" )]
-        public string? Href { get; set; }
-
-        [JsonPropertyName( "id" )]
-        public string? Id { get; set; }
-
-        [JsonPropertyName( "images" )]
-        public List<SpotifyImages>? Images { get; set; }
-
-        [JsonPropertyName( "name" )]
-        public string? Name { get; set; }
-
-        [JsonPropertyName( "release_date" )]
-        public string? ReleaseDate { get; set; }
-
-        [JsonPropertyName( "release_date_precision" )]
-        public string? ReleaseDatePrecision { get; set; }
-
-        [JsonPropertyName( "restrictions" )]
-        public SpotifyRestrictions? Restrictions { get; set; }
-
-        [JsonPropertyName( "type" )]
-        public string? Type { get; set; }
-
-        [JsonPropertyName( "uri" )]
-        public string? Uri { get; set; }
-
-        [JsonPropertyName( "artists" )]
-        public List<SpotifyArtists>? Artists { get; set; }
     }
 
     public class SpotifyDevice
@@ -313,5 +327,138 @@ namespace Clube.Data.Spotify
 
         [JsonPropertyName( "actions" )]
         public SpotifyActions? Actions { get; set; }
+    }
+
+    public class SpotifyArtist
+    {
+        [JsonPropertyName( "external_urls" )]
+        public SpotifyExternalUrls? ExternalUrls { get; set; }
+
+        [JsonPropertyName( "href" )]
+        public string? Href { get; set; }
+
+        [JsonPropertyName( "id" )]
+        public string? Id { get; set; }
+
+        [JsonPropertyName( "name" )]
+        public string? Name { get; set; }
+
+        [JsonPropertyName( "type" )]
+        public string? Type { get; set; }
+
+        [JsonPropertyName( "uri" )]
+        public string? Uri { get; set; }
+    }
+
+    public class SpotifyAlbum
+    {
+        [JsonPropertyName( "album_type" )]
+        public string? AlbumType { get; set; }
+
+        [JsonPropertyName( "total_tracks" )]
+        public int? TotalTracks { get; set; }
+
+        [JsonPropertyName( "available_markets" )]
+        public List<string>? AvailableMarkets { get; set; }
+
+        [JsonPropertyName( "external_urls" )]
+        public SpotifyExternalUrls? ExternalUrls { get; set; }
+
+        [JsonPropertyName( "href" )]
+        public string? Href { get; set; }
+
+        [JsonPropertyName( "id" )]
+        public string? Id { get; set; }
+
+        [JsonPropertyName( "images" )]
+        public List<SpotifyImage>? Images { get; set; }
+
+        [JsonPropertyName( "name" )]
+        public string? Name { get; set; }
+
+        [JsonPropertyName( "release_date" )]
+        public string? ReleaseDate { get; set; }
+
+        [JsonPropertyName( "release_date_precision" )]
+        public string? ReleaseDatePrecision { get; set; }
+
+        [JsonPropertyName( "restrictions" )]
+        public SpotifyRestrictions? Restrictions { get; set; }
+
+        [JsonPropertyName( "type" )]
+        public string? Type { get; set; }
+
+        [JsonPropertyName( "uri" )]
+        public string? Uri { get; set; }
+
+        [JsonPropertyName( "artists" )]
+        public List<SpotifyArtist>? Artists { get; set; }
+    }
+
+
+    public class SpotifyTrack
+    {
+        [JsonPropertyName( "album" )]
+        public SpotifyAlbum? Album { get; set; }
+
+        [JsonPropertyName( "artists" )]
+        public List<SpotifyArtist>? Artists { get; set; }
+
+        [JsonPropertyName( "available_markets" )]
+        public List<string>? AvailableMarkets { get; set; }
+
+        [JsonPropertyName( "disc_number" )]
+        public int? DiscNumber { get; set; }
+
+        [JsonPropertyName( "duration_ms" )]
+        public int? DurationMs { get; set; }
+
+        [JsonPropertyName( "explicit" )]
+        public bool? Explicit { get; set; }
+
+        [JsonPropertyName( "external_ids" )]
+        public Dictionary<string , string>? ExternalIds { get; set; }
+
+        [JsonPropertyName( "external_urls" )]
+        public SpotifyExternalUrls? ExternalUrls { get; set; }
+
+        [JsonPropertyName( "href" )]
+        public string? Href { get; set; }
+
+        [JsonPropertyName( "id" )]
+        public string? Id { get; set; }
+
+        [JsonPropertyName( "is_local" )]
+        public bool? IsLocal { get; set; }
+
+        [JsonPropertyName( "name" )]
+        public string? Name { get; set; }
+
+        [JsonPropertyName( "popularity" )]
+        public int? Popularity { get; set; }
+
+        [JsonPropertyName( "preview_url" )]
+        public string? PreviewUrl { get; set; }
+
+        [JsonPropertyName( "track_number" )]
+        public int? TrackNumber { get; set; }
+
+        [JsonPropertyName( "type" )]
+        public string? Type { get; set; }
+
+        [JsonPropertyName( "uri" )]
+        public string? Uri { get; set; }
+    }
+
+    public static class Payload
+    {
+        public class SetPlayerCurrentPlayback
+        {
+            [JsonPropertyName( "device_ids" )]
+            public required string[] DeviceIds { get; set; }
+
+            [JsonPropertyName( "play" )]
+            public bool? Play { get; set; }
+        }
     }
 }

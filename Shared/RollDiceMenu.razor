@@ -82,9 +82,12 @@
     {
         await base.OnAfterRenderAsync( firstRender );
 
-        if (module is null)
+        if (firstRender)
         {
-            module = await JS.InvokeAsync<IJSObjectReference>( "import" , "./animations.js" );
+            if (module is null)
+            {
+                module = await JS.InvokeAsync<IJSObjectReference>( "import" , "./animations.js" );
+            }
         }
     }
 

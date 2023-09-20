@@ -4,18 +4,18 @@
     <div class="col-3 mx-3 border border-dark shadow rounded" style="width: 140px; height: 140px;">
         <img class="img-fluid rounded p-2" src="@Player.ProfileImg" />
     </div>
-    <div class="gap-1 col-8 h-50 py-3 px-0 row text-center">
-        <div class="col-5">
+    <div class="gap-3 col-8 h-50 py-3 px-0 row text-center justify-content-center">
+        <div class="col-11 col-md-5">
             <PlayerHeaderBasicInfoField Title="Nome" Value="@Player.Name"></PlayerHeaderBasicInfoField>
         </div>
-        <div class="col-5">
+        <div class="col-11 col-md-5">
             <PlayerHeaderBasicInfoField Title="Classe" Value="@Player.Class"></PlayerHeaderBasicInfoField>
         </div>
-        <div class="col-5">
-            <PlayerHeaderBasicInfoField Title="Idade" Value="@Player.Age.ToString()"></PlayerHeaderBasicInfoField>
-        </div>
-        <div class="col-5">
+        <div class="col-6 col-md-5">
             <PlayerHeaderBasicInfoField Title="Raça" Value="@Player.Race"></PlayerHeaderBasicInfoField>
+        </div>
+        <div class="col-4 col-md-5">
+            <PlayerHeaderBasicInfoField Title="Idade" Value="@Player.Age.ToString()"></PlayerHeaderBasicInfoField>
         </div>
     </div>
 </div>

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Clube.Data.Spotify
 {
-    public class SpotifyWebPlaybackTrack
+    public record class SpotifyWebPlaybackTrack
     {
         [JsonPropertyName( "uri" )]
         public string? Uri { get; set; } // Spotify URI
@@ -31,7 +31,7 @@ namespace Clube.Data.Spotify
         public List<SpotifyWebPlaybackArtist>? Artists { get; set; }
     }
 
-    public class SpotifyWebPlaybackAlbum
+    public record class SpotifyWebPlaybackAlbum
     {
         [JsonPropertyName( "uri" )]
         public string? Uri { get; set; } // Spotify Album URI
@@ -43,7 +43,7 @@ namespace Clube.Data.Spotify
         public List<SpotifyWebPlaybackImage>? Images { get; set; }
     }
 
-    public class SpotifyWebPlaybackArtist
+    public record class SpotifyWebPlaybackArtist
     {
         [JsonPropertyName( "uri" )]
         public string? Uri { get; set; } // Spotify Artist URI
@@ -52,7 +52,7 @@ namespace Clube.Data.Spotify
         public string? Name { get; set; } // Artist Name
     }
 
-    public class SpotifyWebPlaybackImage
+    public record class SpotifyWebPlaybackImage
     {
         [JsonPropertyName( "url" )]
         public string? Url { get; set; }

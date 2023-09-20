@@ -5,7 +5,13 @@ using System.Text.Json.Serialization;
 
 namespace Clube.Data.Spotify
 {
-    public struct SpotifyEndpoint
+    public interface ISpotifyEndpoint
+    {
+        public string URL { get; set; }
+        public HttpMethod Method { get; set; }
+    }
+
+    public class SpotifyEndpoint : ISpotifyEndpoint
     {
         public SpotifyEndpoint( string uRL , HttpMethod method )
         {
@@ -17,23 +23,30 @@ namespace Clube.Data.Spotify
         public HttpMethod Method { get; set; }
     }
 
-    public static class SpotifyRequestURI 
+    public static class SpotifyRequestURI
     {
-        public static readonly SpotifyEndpoint GetCurrentUser = new("https://api.spotify.com/v1/me", HttpMethod.Get );
+        public static readonly SpotifyEndpoint GetCurrentUser = new( "https://api.spotify.com/v1/me" , HttpMethod.Get );
         public static readonly SpotifyEndpoint GetPlayerPlaybackState = new( "https://api.spotify.com/v1/me/player" , HttpMethod.Get );
+
         public static readonly SpotifyEndpoint TransferPlayback = new( "https://api.spotify.com/v1/me/player" , HttpMethod.Put );
     }
 
     public static class SpotifyAPI
     {
+        public static async Task<bool> CurrentlyPlayingOnDevice(this HttpClient client, string accessToken, string deviceName )
+        {
+            SpotifyPlaybackState? currentState = await client.GetPlayerPlaybackState( accessToken );
+            return currentState != null && currentState?.Device?.Name == deviceName && currentState.IsPlaying();
+        }
+
         public static JsonSerializerOptions _JSONParseOptions = new JsonSerializerOptions
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
 
-    public static async Task<SpotifyUserContext?> GetSpotifyUserContext( this HttpClient client , string accessToken )
+        public static async Task<SpotifyUser?> GetSpotifyUser( this HttpClient client , string accessToken )
         {
-            return await Request<SpotifyUserContext>(
+            return await Request<SpotifyUser>(
                     accessToken ,
                     SpotifyRequestURI.GetCurrentUser ,
                     client );
@@ -47,26 +60,18 @@ namespace Clube.Data.Spotify
                     client );
         }
 
-        public class SetPlayerCurrentPlaybackPayload
+        public static async Task<SpotifyTrack?> GetSpotifyTrack( this HttpClient client , string accessToken , string trackId )
         {
-            [JsonPropertyName( "device_ids" )]
-            public required string[] DeviceIds { get; set; }
+            if (string.IsNullOrEmpty( trackId ))
+            {
+                return null;
+            }
 
-            [JsonPropertyName( "play" )]
-            public bool? Play { get; set; }
-        }
-
-        public static async Task<string?> SetPlayerCurrentPlaybackAndPlay( this HttpClient client , string accessToken, string deviceId )
-        {
-            return await RequestRaw(
+            SpotifyEndpoint getTrackEndpoint = new SpotifyEndpoint( $"https://api.spotify.com/v1/tracks/{trackId}" , HttpMethod.Get );
+            return await Request<SpotifyTrack>(
                     accessToken ,
-                    SpotifyRequestURI.TransferPlayback ,
-                    client ,
-                    Parse( new SetPlayerCurrentPlaybackPayload
-                        {
-                            DeviceIds = new string[] { deviceId } ,
-                            Play = true
-                        } )
+                    getTrackEndpoint ,
+                    client
                     );
         }
 
@@ -76,23 +81,37 @@ namespace Clube.Data.Spotify
                     accessToken ,
                     SpotifyRequestURI.TransferPlayback ,
                     client ,
-                    Parse( new SetPlayerCurrentPlaybackPayload
+                    Parse( new Payload.SetPlayerCurrentPlayback
                     {
                         DeviceIds = new string[] { deviceId }
                     } )
                     );
         }
 
-        public static async Task<T?> Request<T>( string accessToken, SpotifyEndpoint endpoint, HttpClient? backchannelClient , JsonDocument? parameters = null )
+        public static async Task<string?> SetPlayerCurrentPlaybackAndPlay( this HttpClient client , string accessToken , string deviceId )
         {
-            string? response = await RequestRaw( accessToken , endpoint , backchannelClient, parameters );
+            return await RequestRaw(
+                    accessToken ,
+                    SpotifyRequestURI.TransferPlayback ,
+                    client ,
+                    Parse( new Payload.SetPlayerCurrentPlayback
+                    {
+                        DeviceIds = new string[] { deviceId } ,
+                        Play = true
+                    } )
+                    );
+        }
+
+        public static async Task<T?> Request<T>( string accessToken , SpotifyEndpoint endpoint , HttpClient? backchannelClient , JsonDocument? parameters = null )
+        {
+            string? response = await RequestRaw( accessToken , endpoint , backchannelClient , parameters );
 
             return response == null
-                ? default 
+                ? default
                 : JsonSerializer.Deserialize<T>( response );
         }
 
-        public static async Task<string?> RequestRaw( string accessToken , SpotifyEndpoint endpoint , HttpClient? backchannelClient, JsonDocument? parameters = null )
+        public static async Task<string?> RequestRaw( string accessToken , SpotifyEndpoint endpoint , HttpClient? backchannelClient , JsonDocument? parameters = null )
         {
             HttpRequestMessage request = new HttpRequestMessage( endpoint.Method , endpoint.URL );
             request.Headers.Add( "Accept" , "application/json" );
@@ -115,7 +134,7 @@ namespace Clube.Data.Spotify
             return null;
         }
 
-        private static void SetParameters(HttpRequestMessage request ,HttpMethod httpMethod ,JsonDocument parameters)
+        private static void SetParameters( HttpRequestMessage request , HttpMethod httpMethod , JsonDocument parameters )
         {
             if (httpMethod == HttpMethod.Get)
             {
@@ -140,7 +159,7 @@ namespace Clube.Data.Spotify
             }
         }
 
-        private static JsonDocument Parse(object item )
+        private static JsonDocument Parse( object item )
         {
             return JsonDocument.Parse( JsonSerializer.Serialize( item , _JSONParseOptions ) );
         }
