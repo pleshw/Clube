@@ -5,7 +5,8 @@
 @inject IJSRuntime JS
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject IHttpClientFactory ClientFactory
-@if (string.IsNullOrEmpty( DeviceId ))
+
+@if (string.IsNullOrEmpty( DeviceId ) && !string.IsNullOrEmpty(AccessToken))
 {
     <div class="row justify-content-center align-content-center w-100 m-0 p-5">
         Carregando Spotify...
@@ -13,9 +14,18 @@
 }
 else if (userSpotifyClaim == null || !userSpotifyClaim.IsAuthenticated)
 {
-    <div class="row justify-content-center align-content-center w-100 m-0 p-5">
-        <SpotifyLoginButton></SpotifyLoginButton>
-    </div>
+    @if (string.IsNullOrEmpty( AccessToken ))
+    {
+        <div class="row justify-content-center align-content-center w-100 m-0 p-5">
+            <SpotifyLoginButton></SpotifyLoginButton>
+        </div>
+    }
+    else
+    {
+        <div class="row justify-content-center align-content-center w-100 m-0 p-5">
+            Carregando Spotify...
+        </div>
+    }
 }
 else
 {
@@ -39,7 +49,7 @@ else
         </div>
         <div class="row col-2 justify-content-start align-items-center">
             <div class="row col-12 justify-content-center">
-                <SpotifyPlayPauseButton PlayerComponent="_component" State="@(IsPlaying ? "playing" : "")"></SpotifyPlayPauseButton>
+                <SpotifyPlayPauseButton Loading="AwaitCommandComplete" PlayerComponent="_self" State="@(IsPlaying ? "playing" : "")"></SpotifyPlayPauseButton>
             </div>
         </div>
     </div>
@@ -51,7 +61,8 @@ else
     private SpotifyJSInterop? spotifyJSInterop;
     public IJSObjectReference? spotifyPlayer;
     public static SpotifyWebPlaybackState? spotifyWebPlayerState;
-    private static SpotifyPlayer? _component;
+    private static SpotifyPlayer? _self;
+    private static bool AwaitCommandComplete = false;
 
     public ClaimsIdentity? userSpotifyClaim;
 
@@ -76,7 +87,7 @@ else
 
         spotifyJSInterop = new();
 
-        _component = this;
+        _self = this;
     }
 
     protected override async Task OnAfterRenderAsync( bool firstRender )
@@ -90,9 +101,10 @@ else
                 spotifyModule = await JS.InvokeAsync<IJSObjectReference>( "import" , "./spotify.js" );
             }
 
-            await InitSpotifyPlayer();
             await SpotifyAuthCheck();
+            await InitSpotifyPlayer();
             await UpdateSpotifyPlayerState();
+            AwaitCommandComplete = false;
         }
     }
 
@@ -124,21 +136,24 @@ else
     [JSInvokable( "TransferPlaybackToPlayerJS" )]
     public static async Task<bool> TransferPlaybackToPlayerJS()
     {
-        if (_component == null || string.IsNullOrEmpty( AccessToken ) || string.IsNullOrEmpty( DeviceId ))
+        AwaitCommandComplete = true;
+        if (_self == null || string.IsNullOrEmpty( AccessToken ) || string.IsNullOrEmpty( DeviceId ))
         {
             return false;
         }
 
-        HttpClient client = _component!.ClientFactory.CreateClient();
+        HttpClient client = _self!.ClientFactory.CreateClient();
         SpotifyPlaybackState? currentState = await client.GetPlayerPlaybackState( AccessToken );
         bool playingOnThisDevice = await client.CurrentlyPlayingOnDevice( AccessToken , "CdR" );
 
         if (!playingOnThisDevice)
         {
-            await client.SetPlayerCurrentPlayback( AccessToken , DeviceId );
+            await client.SetPlayerCurrentPlaybackAndPlay( AccessToken , DeviceId );
+            await _self.UpdateSpotifyPlayerState();
             return true;
         }
 
+        await _self.UpdateSpotifyPlayerState();
         return false;
     }
 
@@ -146,23 +161,25 @@ else
     public static void SetSpotifyDeviceId( string? deviceId )
     {
         DeviceId = deviceId;
+        _self?.InvokeAsync( _self.StateHasChanged );
     }
 
     [JSInvokable( "SpotifyStateHasChanged" )]
     public static async Task SpotifyStateHasChanged( SpotifyWebPlaybackState? spotifyWebPlaybackStateUpdated )
     {
-        if (spotifyWebPlaybackStateUpdated != spotifyWebPlayerState && _component is not null)
+        AwaitCommandComplete = false;
+        if (spotifyWebPlaybackStateUpdated != spotifyWebPlayerState && _self is not null)
         {
             spotifyWebPlayerState = spotifyWebPlaybackStateUpdated;
 
             if (spotifyWebPlayerState?.TrackWindow?.CurrentTrack?.Id is not null)
             {
-                await _component.UpdateSpotifyPlayerState( spotifyWebPlayerState.TrackWindow.CurrentTrack.Id );
+                await _self.UpdateSpotifyPlayerState( spotifyWebPlayerState.TrackWindow.CurrentTrack.Id );
             }
             else
             {
                 PlayerCurrentTrack = null;
-                await _component.UpdateSpotifyPlayerState();
+                await _self.UpdateSpotifyPlayerState();
             }
         }
     }
