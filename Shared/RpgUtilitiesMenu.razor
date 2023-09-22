@@ -1,0 +1,38 @@
+﻿<div class="row w-100 justify-content-center">
+    <div class="row col-12 mb-4">
+        <div class="accordion border-0" id="accordionHeaderFichas">
+            <div class="accordion-item border-0  rounded-0 ">
+                <h2 class="accordion-header border-0">
+                    <button class="accordion-button rounded-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiceRolls" aria-expanded="true" aria-controls="collapseDiceRolls">
+                        Rolar Dados
+                    </button>
+                </h2>
+                <div id="collapseDiceRolls" class="accordion-collapse collapse" data-bs-parent="#accordionHeaderFichas">
+                    <div class="accordion-body  rounded-0  border-0 p-0">
+                        <RollDiceMenu></RollDiceMenu>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row col-12">
+        <div class="accordion border-0" id="accordionHeaderPlayerUtils">
+            <div class="accordion-item border-0  rounded-0 ">
+                <h2 class="accordion-header border-0">
+                    <button class="accordion-button rounded-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlayerNotes" aria-expanded="true" aria-controls="collapsePlayerNotes">
+                        Anotações
+                    </button>
+                </h2>
+                <div id="collapsePlayerNotes" class="accordion-collapse collapse" data-bs-parent="#accordionHeaderPlayerUtils">
+                    <div class="accordion-body  rounded-0  border-0 p-0">
+                        <ProfileNotes></ProfileNotes>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@code {
+
+}

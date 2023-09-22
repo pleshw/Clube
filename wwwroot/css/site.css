@@ -81,6 +81,10 @@ a, .btn-link {
     border-bottom: 2px dashed var(--pleshw-main-color) !important;
 }
 
+.accordion-button:not(.collapsed) {
+    background-color: #fff !important;
+}
+
 .text-drumon {
     color: var(--drumon-main-color) !important;
 }

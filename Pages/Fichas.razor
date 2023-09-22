@@ -4,65 +4,54 @@
 
 <PageTitle>Bem Vindo</PageTitle>
 
-<div class="row justify-content-center p-sm-0 w-100 m-0">
+<div class="row justify-content-around p-sm-0 w-100 m-0">
+    <div class="col-sm-12 col-lg-5 col-xl-3 row justify-content-around container-fluid mb-4">
+        <div class="col-12 mt-lg-5">
+            <SpotifyPlayer></SpotifyPlayer>
+        </div>
+    </div>
     <div class="row m-sm-0 p-sm-0 col-sm-12 col-lg-5 justify-content-center">
-        @if (MainPlayer != null)
-        {
-            <div class="bg-white container row shadow border-dark justify-content-center px-0 py-0 my-0">
-                <div class="row px-0 py-0 w-100 justify-content-center border-2 border-bottom">
-                    <ProfileHeader Player="@MainPlayer"></ProfileHeader>
-                </div>
-                <div class="row col-12 mt-4 justify-content-center">
-                    <div class="col-12 row justify-content-center px-0">
-                        <div class="row col-12">
-                            <ProfileAttributes Player="@MainPlayer"></ProfileAttributes>
+        <nav class="w-100 col-12 m-0 p-0 bg-white justify-content-sm-center justify-content-md-center">
+            <div class="nav nav-tabs justify-content-center justify-content-lg-start" id="nav-tab" role="tablist">
+                <button class="nav-link rounded-0 active text-doofens fw-bold" id="nav-ficha-tab" data-bs-toggle="tab" data-bs-target="#nav-ficha" type="button" role="tab" aria-controls="nav-ficha" aria-selected="true">Ficha</button>
+                <button class="nav-link rounded-0 text-jujuba fw-bold" id="nav-background-tab" data-bs-toggle="tab" data-bs-target="#nav-background" type="button" role="tab" aria-controls="nav-background" aria-selected="false">Background</button>
+                <button class="nav-link rounded-0 d-lg-none d-xl-none text-pleshw fw-bold" id="nav-utility-tab" data-bs-toggle="tab" data-bs-target="#nav-utility" type="button" role="tab" aria-controls="nav-utility" aria-selected="false">Utilidades</button>
+            </div>
+        </nav>
+        <div class="tab-content w-100 col-12 p-0 m-0 row" id="nav-tabContent">
+            <div class="tab-pane fade show active col-12 row justify-content-center p-0 m-0" id="nav-ficha" role="tabpanel" aria-labelledby="nav-ficha-tab" tabindex="0">
+                @if (MainPlayer != null)
+                {
+                    <div style="overflow-y: auto; max-height: 720px;" class="h-100 bg-white container row shadow border-dark justify-content-center p-0 m-0">
+                        <div class="row px-0 py-0 w-100 justify-content-center border-2 border-bottom">
+                            <ProfileHeader Player="@MainPlayer"></ProfileHeader>
+                        </div>
+                        <div class="row col-12 mt-4 justify-content-center">
+                            <div class="col-12 row justify-content-center px-0">
+                                <div class="row col-12">
+                                    <ProfileAttributes Player="@MainPlayer"></ProfileAttributes>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                }
+            </div>
+            <div class="tab-pane fade row justify-content-center p-0 m-0" id="nav-background" role="tabpanel" aria-labelledby="nav-background-tab" tabindex="0">
+                <div style="overflow-y: auto; max-height: 720px;" class="h-100 bg-white container row shadow border-dark justify-content-center p-0 m-0">
+                    
                 </div>
             </div>
-        }
+        </div>
     </div>
-    <div class="col-sm-12 col-lg-3  row justify-content-around container-fluid">
-        <div class="row col-12 gap-3" style="height: fit-content;">
-            <div class="col-12 row justify-content-center align-items-center" style="height: 200px;">
-                <div class="col-8 row justify-content-center mb-1">
-                    <button @onclick="ResetPlayer" style="height: 40px;" class="btn btn-dark">Nova Ficha</button>
-                </div>
+    <div class="col-sm-12 col-lg-5 col-xl-3  row justify-content-around container-fluid d-none d-lg-flex">
+        <div class="row col-12 gap-3 justify-content-center" style="height: fit-content;">
+            <div class="col-12 row justify-content-center align-items-center" style="height: 50px;">
                 <div class="col-8 row justify-content-center mb-5">
                     <button @onclick="ResetPlayer" style="height: 40px;" class="btn btn-dark">Salvar Ficha</button>
                 </div>
             </div>
-            <div class="row col-12">
-                <div class="accordion border-0" id="accordionHeaderFichas">
-                    <div class="accordion-item border-0  rounded-0 ">
-                        <h2 class="accordion-header border-0">
-                            <button class="accordion-button rounded-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiceRolls" aria-expanded="true" aria-controls="collapseDiceRolls">
-                                Rolar Dados
-                            </button>
-                        </h2>
-                        <div id="collapseDiceRolls" class="accordion-collapse collapse" data-bs-parent="#accordionHeaderFichas">
-                            <div class="accordion-body  rounded-0  border-0 p-0">
-                                <RollDiceMenu></RollDiceMenu>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row col-12">
-                <div class="accordion border-0" id="accordionHeaderPlayerUtils">
-                    <div class="accordion-item border-0  rounded-0 ">
-                        <h2 class="accordion-header border-0">
-                            <button class="accordion-button rounded-0 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlayerNotes" aria-expanded="true" aria-controls="collapsePlayerNotes">
-                                Anotações
-                            </button>
-                        </h2>
-                        <div id="collapsePlayerNotes" class="accordion-collapse collapse" data-bs-parent="#accordionHeaderPlayerUtils">
-                            <div class="accordion-body  rounded-0  border-0 p-0">
-                                <ProfileNotes></ProfileNotes>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-12">
+                <RpgUtilitiesMenu></RpgUtilitiesMenu>
             </div>
         </div>
     </div>

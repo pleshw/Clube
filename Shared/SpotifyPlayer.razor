@@ -130,6 +130,7 @@ else
             spotifyPlayer = await spotifyJSInterop.InitSpotifyPlayer( AccessToken , spotifyModule );
             HttpClient client = ClientFactory.CreateClient();
             SpotifyPlaybackState? currentState = await client.GetPlayerPlaybackState( AccessToken );
+            await InvokeAsync( StateHasChanged );
         }
     }
 

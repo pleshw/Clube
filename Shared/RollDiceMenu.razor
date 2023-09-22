@@ -26,13 +26,13 @@
                max="10"
                step="1" />
         <div class="row col-12 align-items-center justify-content-between w-100">
-            <button class="btn btn-sm btn-outline-dark col-6 my-2" @onclick="ExecuteRoll">
-                Rolar
-            </button>
             <div class="col-5 d-flex justify-content-between gap-1 user-select-none">
                 <input id="checkAnimationDiceRoll" type="checkbox" class="" style="cursor: pointer;" checked />
                 <label for="checkAnimationDiceRoll" class="fw-bold text-dark user-select-none" style="font-size: 13px; cursor: pointer;">Animação</label>
             </div>
+            <button class="btn btn-sm btn-outline-dark col-6 my-2" @onclick="ExecuteRoll">
+                Rolar
+            </button>
         </div>
     </div>
 
@@ -49,20 +49,20 @@
             }
         </ul>
     </div>
-    @if (RollResults != null && RollResults.Count > 0)
+    @if (RollResults != null)
     {
         <div class="card-footer accordion" id="accordionDiceRolResultsStatistics">
             <div class="accordion-item">
                 <h2 class="accordion-header">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiceStatistics" aria-expanded="true" aria-controls="collapseDiceStatistics">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiceStatistics" aria-expanded="false" aria-controls="collapseDiceStatistics">
                         Extras
                     </button>
                 </h2>
-                <div id="collapseDiceStatistics" class="accordion-collapse collapse show" data-bs-parent="#accordionDiceRolResultsStatistics">
+                <div id="collapseDiceStatistics" class="accordion-collapse collapse" data-bs-parent="#accordionDiceRolResultsStatistics">
                     <div class="accordion-body">
-                        <span>Soma: @RollResults.Sum()</span>
+                        <span>Soma: @(RollResults.Count > 0 ? @RollResults.Sum() : 0)</span>
                         <hr class="dropdown-divider">
-                        <span>Maior Resultado: @RollResults.Max()</span>
+                        <span>Maior Resultado: @(RollResults.Count > 0 ? @RollResults.Max(): 0)</span>
                     </div>
                 </div>
             </div>
