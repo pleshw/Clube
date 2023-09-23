@@ -1,0 +1,41 @@
+@using Clube.Data
+
+<div class="row gap-3 flex-nowrap overflow-auto px-3">
+    @foreach (Note note in Notes)
+    {
+        <div class="card shadow m-0 p-0 rounded-0 col-8">
+            @if (!string.IsNullOrEmpty( note.Title ))
+            {
+                <div class="card-header rounded-0 fw-bolder bg-white text-@ClubeRandomizer.Members.GetRandom()">
+                    @note.Title.Trim()
+                </div>
+            }
+            <div class="card-body">
+                @note.Value
+            </div>
+            <div class="card-footer py-0 bg-white border-0">
+                <div class="rounded-0 py-2 d-flex align-items-center justify-content-end">
+                    <div class="form-control border-0 p-0 m-0 bg-transparent" style="justify-self: start;">
+                        <small style="font-size: 12px; font-family: sans-serif;" class="text-muted fw-bolder">@note.Created.ToShortDateString()</small>
+                    </div>
+                    <button type="button" @onclick="()=> RemoveNote(note)" class="btn btn-outline-dark btn-sm col-5" style="font-size: 12px;">
+                        Excluir
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@code{
+    [CascadingParameter]
+    public required List<Note> Notes { get; set; }
+
+    [CascadingParameter] 
+    public required Func<Task> OnNotesChanged { get; set; }
+
+    private async Task RemoveNote( Note note )
+    {
+        RPGNoteService.RemoveNote( note );
+        await InvokeAsync(OnNotesChanged);
+    }
+}

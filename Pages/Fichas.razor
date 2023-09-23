@@ -1,5 +1,5 @@
 ﻿@page "/fichas"
-@using Clube.Data.RPG;
+@using Clube.Models.RPG;
 @using System.ComponentModel.DataAnnotations;
 
 <PageTitle>Bem Vindo</PageTitle>
@@ -10,8 +10,8 @@
             <SpotifyPlayer></SpotifyPlayer>
         </div>
     </div>
-    <div class="row m-sm-0 p-sm-0 col-sm-12 col-lg-5 justify-content-center">
-        <nav class="w-100 col-12 m-0 p-0 bg-white justify-content-sm-center justify-content-md-center">
+    <div class="m-sm-0 p-sm-0 col-sm-12 col-lg-5">
+        <nav class="w-100 col-12 m-0 p-0 bg-white justify-content-sm-center justify-content-md-center" style="height: fit-content;">
             <div class="nav nav-tabs justify-content-center justify-content-lg-start" id="nav-tab" role="tablist">
                 <button class="nav-link rounded-0 active text-doofens fw-bold" id="nav-ficha-tab" data-bs-toggle="tab" data-bs-target="#nav-ficha" type="button" role="tab" aria-controls="nav-ficha" aria-selected="true">Ficha</button>
                 <button class="nav-link rounded-0 text-jujuba fw-bold" id="nav-background-tab" data-bs-toggle="tab" data-bs-target="#nav-background" type="button" role="tab" aria-controls="nav-background" aria-selected="false">Background</button>

@@ -1,4 +1,7 @@
-﻿namespace Clube.Data.RPG
+﻿using Clube.Models.RPG.Systems;
+using System.ComponentModel.DataAnnotations;
+
+namespace Clube.Models.RPG
 {
     public enum AttributeType
     {
@@ -6,24 +9,30 @@
         SECONDARY
     }
 
-    public record struct PlayerAttribute
+    public record class PlayerAttribute
     {
-        public required int Value;
-        public required string Name;
-        public required string Description;
-        public required AttributeType Type;
+        public Guid Id { get; set; }
+        public required int Value { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+        public required AttributeType Type { get; set; }
+
+        public required Guid PlayerId { get; set; }
+        public required Player Player { get; set; }
     }
 
-    public class PlayerAttributes : List<PlayerAttribute>
+    public class PlayerAttributeList : List<PlayerAttribute>
     {
-        public static PlayerAttributes ClubeAttributesTranslatedTemplate
+        public static PlayerAttributeList ClubeAttributesTranslatedTemplate
         {
             get
             {
-                return new PlayerAttributes
+                return new PlayerAttributeList
                 {
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.PRIMARY,
                         Value = 0 ,
                         Name = "Vigor" ,
@@ -31,6 +40,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.PRIMARY,
                         Value = 0 ,
                         Name = "Inteligência" ,
@@ -39,6 +50,8 @@
 
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Trapaça" ,
@@ -46,6 +59,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Intuição" ,
@@ -53,6 +68,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Percepção" ,
@@ -60,6 +77,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Intimidação" ,
@@ -67,6 +86,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Conhecimento" ,
@@ -74,6 +95,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Iniciativa" ,
@@ -81,6 +104,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "História" ,
@@ -88,6 +113,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Furtividade" ,
@@ -95,6 +122,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Performance" ,
@@ -102,6 +131,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Perícia com Animais" ,
@@ -109,6 +140,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Conhecimento Médico" ,
@@ -116,6 +149,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Habilidade com as Mãos" ,
@@ -123,6 +158,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Persuasão" ,
@@ -130,6 +167,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Equilíbrio" ,
@@ -139,14 +178,16 @@
             }
         }
 
-        public static PlayerAttributes ClubeAttributesTemplate
+        public static PlayerAttributeList ClubeAttributesTemplate
         {
             get
             {
-                return new PlayerAttributes
+                return new PlayerAttributeList
                 {
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.PRIMARY,
                         Value = 0 ,
                         Name = "Strength" ,
@@ -154,6 +195,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.PRIMARY,
                         Value = 0 ,
                         Name = "Intelligence" ,
@@ -162,112 +205,142 @@
 
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Deception" ,
-                        Description = "Reflects your character's ability to deceive and cheat. Useful for trickery, persuasion, and avoiding traps." 
+                        Description = "Reflects your character's ability to deceive and cheat. Useful for trickery, persuasion, and avoiding traps."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Intuition" ,
-                        Description = "Represents your character's sensitivity to hidden situations and clues. Influences the ability to perceive subtle threats or opportunities." 
+                        Description = "Represents your character's sensitivity to hidden situations and clues. Influences the ability to perceive subtle threats or opportunities."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Perception" ,
-                        Description = "Your ability to observe and notice details in your surroundings. Affects the detection of hidden objects or the observation of important clues." 
+                        Description = "Your ability to observe and notice details in your surroundings. Affects the detection of hidden objects or the observation of important clues."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Intimidation" ,
-                        Description = "Measures your character's ability to intimidate or coerce others. Useful for gathering information or gaining an advantage in negotiations." 
+                        Description = "Measures your character's ability to intimidate or coerce others. Useful for gathering information or gaining an advantage in negotiations."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Knowledge" ,
-                        Description = "Reflects your character's general and cultural knowledge. Can be used to recall historical facts, identify creatures, or understand foreign cultures." 
+                        Description = "Reflects your character's general and cultural knowledge. Can be used to recall historical facts, identify creatures, or understand foreign cultures."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Initiative" ,
-                        Description = "Your quick reflexes and readiness in combat situations. Affects the order in which your character acts during battles." 
+                        Description = "Your quick reflexes and readiness in combat situations. Affects the order in which your character acts during battles."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "History" ,
-                        Description = "Your character's knowledge of past events and legends. Can be valuable for solving puzzles or understanding the world's history." 
+                        Description = "Your character's knowledge of past events and legends. Can be valuable for solving puzzles or understanding the world's history."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Stealth" ,
-                        Description = "Your ability to move silently and go unnoticed. Useful for hiding or surprising enemies." 
+                        Description = "Your ability to move silently and go unnoticed. Useful for hiding or surprising enemies."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Performance" ,
-                        Description = "Reflects your character's artistic talent and acting ability. Can be used for entertaining, influencing, or deceiving." 
+                        Description = "Reflects your character's artistic talent and acting ability. Can be used for entertaining, influencing, or deceiving."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Animal Handling" ,
-                        Description = "Measures your character's affinity and skill in dealing with animals. Useful for training pets or communicating with wild animals." 
+                        Description = "Measures your character's affinity and skill in dealing with animals. Useful for training pets or communicating with wild animals."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Medical Knowledge" ,
-                        Description = "Your understanding of anatomy and medicine. Crucial for treating injuries, diagnosing illnesses, or performing medical procedures." 
+                        Description = "Your understanding of anatomy and medicine. Crucial for treating injuries, diagnosing illnesses, or performing medical procedures."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 , Name = "Manual Dexterity" ,
-                        Description = "Reflects your character's manual dexterity. Useful for tasks that require manual precision, such as picking locks or crafting objects." 
+                        Description = "Reflects your character's manual dexterity. Useful for tasks that require manual precision, such as picking locks or crafting objects."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0 , Name = "Persuasion" ,
-                        Description = "Your ability to convince and influence others. Can be used to gain allies, obtain information, or negotiate advantages." 
+                        Description = "Your ability to convince and influence others. Can be used to gain allies, obtain information, or negotiate advantages."
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = ClubeSystem.DefaultPlayer.Id,
+                        Player = ClubeSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
-                        Value = 0 , 
+                        Value = 0 ,
                         Name = "Balance" ,
-                        Description = "Measures your character's physical stability and agility. Useful for avoiding falls, balancing in precarious situations, or performing acrobatics." 
+                        Description = "Measures your character's physical stability and agility. Useful for avoiding falls, balancing in precarious situations, or performing acrobatics."
                     }
                 };
             }
         }
 
-        public static PlayerAttributes DndAttributesTemplate
+        public static PlayerAttributeList DndAttributesTemplate
         {
             get
             {
-                return new PlayerAttributes
+                return new PlayerAttributeList
                 {
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Strength",
@@ -275,6 +348,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Dexterity",
@@ -282,6 +357,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Constitution",
@@ -289,6 +366,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Intelligence",
@@ -296,6 +375,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Wisdom",
@@ -303,6 +384,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Charisma",
@@ -310,6 +393,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Acrobatics",
@@ -317,6 +402,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Arcana",
@@ -324,6 +411,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Survival",
@@ -331,6 +420,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Perception",
@@ -338,6 +429,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Stealth",
@@ -345,6 +438,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Persuasion",
@@ -352,6 +447,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Athletics",
@@ -359,6 +456,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Religion",
@@ -366,6 +465,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Medicine",
@@ -373,6 +474,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Investigation",
@@ -382,14 +485,16 @@
             }
         }
 
-        public static PlayerAttributes DndAttributesTranslatedTemplate
+        public static PlayerAttributeList DndAttributesTranslatedTemplate
         {
             get
             {
-                return new PlayerAttributes
+                return new PlayerAttributeList
                 {
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Força",
@@ -397,6 +502,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Destreza",
@@ -404,6 +511,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Constituição",
@@ -411,6 +520,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Inteligência",
@@ -418,6 +529,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Sabedoria",
@@ -425,6 +538,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Carisma",
@@ -432,6 +547,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Acrobacia",
@@ -439,6 +556,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Arcana",
@@ -446,6 +565,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Sobrevivência",
@@ -453,6 +574,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Percepção",
@@ -460,6 +583,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Furtividade",
@@ -467,6 +592,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Persuasão",
@@ -474,6 +601,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Atletismo",
@@ -481,6 +610,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Religião",
@@ -488,6 +619,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Medicina",
@@ -495,6 +628,8 @@
                     },
                     new PlayerAttribute
                     {
+                        PlayerId = DNDSystem.DefaultPlayer.Id,
+                        Player = DNDSystem.DefaultPlayer,
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Investigação",

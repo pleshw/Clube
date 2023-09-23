@@ -1,0 +1,20 @@
+<CascadingValue Value="@Notes">
+    <CascadingValue Value="@OnNotesChanged">
+        <div class="rounded-0  border-0 p-0">
+            <NoteEditor></NoteEditor>
+            <div class="rounded-0 p-0 py-3 px-3 bg-white @(Notes.Count < 1 ? "d-none" : "")">
+                <NoteViewer></NoteViewer>
+            </div>
+        </div>
+    </CascadingValue>
+</CascadingValue>
+
+@code {
+    public List<Note> Notes { get; set; } = RPGNoteService.GetNotes();
+
+    public async Task OnNotesChanged()
+    {
+        Notes = RPGNoteService.GetNotes();
+        await InvokeAsync( StateHasChanged );
+    }
+}

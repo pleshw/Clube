@@ -13,27 +13,15 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.11" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.11" />
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="7.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.11">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
     <PackageReference Include="NUnit" Version="3.13.3" />
-    <PackageReference Include="SQLite" Version="3.13.0" />
     <PackageReference Include="YoutubeExplode" Version="6.3.4" />
     <PackageReference Include="YoutubeExplode.Converter" Version="6.3.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Databases\" />
-    <Folder Include="Migrations\" />
+    <Folder Include="wwwroot\css\bootstrap\" />
     <Folder Include="YoutubeVideos\" />
   </ItemGroup>
 
