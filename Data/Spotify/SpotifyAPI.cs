@@ -39,7 +39,7 @@ namespace Clube.Data.Spotify
             return currentState != null && currentState?.Device?.Name == deviceName && currentState.IsPlaying();
         }
 
-        public static JsonSerializerOptions _JSONParseOptions = new JsonSerializerOptions
+        private readonly static JsonSerializerOptions _JSONParseOptions = new()
         {
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
@@ -67,7 +67,7 @@ namespace Clube.Data.Spotify
                 return null;
             }
 
-            SpotifyEndpoint getTrackEndpoint = new SpotifyEndpoint( $"https://api.spotify.com/v1/tracks/{trackId}" , HttpMethod.Get );
+            SpotifyEndpoint getTrackEndpoint = new( $"https://api.spotify.com/v1/tracks/{trackId}" , HttpMethod.Get );
             return await Request<SpotifyTrack>(
                     accessToken ,
                     getTrackEndpoint ,
@@ -113,7 +113,7 @@ namespace Clube.Data.Spotify
 
         public static async Task<string?> RequestRaw( string accessToken , SpotifyEndpoint endpoint , HttpClient? backchannelClient , JsonDocument? parameters = null )
         {
-            HttpRequestMessage request = new HttpRequestMessage( endpoint.Method , endpoint.URL );
+            HttpRequestMessage request = new( endpoint.Method , endpoint.URL );
             request.Headers.Add( "Accept" , "application/json" );
             request.Headers.Add( "Authorization" , $"Bearer {accessToken}" );
 
@@ -134,7 +134,7 @@ namespace Clube.Data.Spotify
             return null;
         }
 
-        private static void SetParameters( HttpRequestMessage request , HttpMethod httpMethod , JsonDocument parameters )
+        public static void SetParameters( HttpRequestMessage request , HttpMethod httpMethod , JsonDocument parameters )
         {
             if (httpMethod == HttpMethod.Get)
             {
@@ -159,7 +159,7 @@ namespace Clube.Data.Spotify
             }
         }
 
-        private static JsonDocument Parse( object item )
+        public static JsonDocument Parse( object item )
         {
             return JsonDocument.Parse( JsonSerializer.Serialize( item , _JSONParseOptions ) );
         }

@@ -1,18 +1,18 @@
-﻿namespace Clube.Models.RPG
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Clube.Models.RPG
 {
-    public interface IRPGSystem
+    public class RPGSystem
     {
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public int Version { get; set; }
-    }
-
-    public abstract class RPGSystem : IRPGSystem
-    {
-        public required Guid Id { get; set; }
         public required string Name { get; set; }
-        public required int Version { get; set; } = 1;
+        public required string Description { get; set; }
+        public required string Version { get; set; } = "1.0";
+        public required string LinkToRules { get; set; }
 
-        public abstract Player GetDefaultPlayer();
+        public required List<RPGItem> RPGItems { get; set; } = new List<RPGItem>();
+
+        [DatabaseGenerated( DatabaseGeneratedOption.Identity )]
+        public DateTime Created { get; set; } = DateTime.Now;
     }
 }

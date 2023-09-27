@@ -31,8 +31,8 @@ namespace Clube.Models.RPG
                 {
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.PRIMARY,
                         Value = 0 ,
                         Name = "Vigor" ,
@@ -40,8 +40,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.PRIMARY,
                         Value = 0 ,
                         Name = "Inteligência" ,
@@ -50,8 +50,8 @@ namespace Clube.Models.RPG
 
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Trapaça" ,
@@ -59,8 +59,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Intuição" ,
@@ -68,8 +68,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Percepção" ,
@@ -77,8 +77,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Intimidação" ,
@@ -86,8 +86,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Conhecimento" ,
@@ -95,8 +95,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Iniciativa" ,
@@ -104,8 +104,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "História" ,
@@ -113,8 +113,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Furtividade" ,
@@ -122,8 +122,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Performance" ,
@@ -131,8 +131,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Perícia com Animais" ,
@@ -140,8 +140,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Conhecimento Médico" ,
@@ -149,8 +149,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Habilidade com as Mãos" ,
@@ -158,8 +158,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Persuasão" ,
@@ -167,8 +167,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Equilíbrio" ,
@@ -186,8 +186,8 @@ namespace Clube.Models.RPG
                 {
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.PRIMARY,
                         Value = 0 ,
                         Name = "Strength" ,
@@ -195,8 +195,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.PRIMARY,
                         Value = 0 ,
                         Name = "Intelligence" ,
@@ -205,8 +205,8 @@ namespace Clube.Models.RPG
 
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Deception" ,
@@ -214,8 +214,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Intuition" ,
@@ -223,8 +223,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Perception" ,
@@ -232,8 +232,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Intimidation" ,
@@ -241,8 +241,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Knowledge" ,
@@ -250,8 +250,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Initiative" ,
@@ -259,8 +259,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "History" ,
@@ -268,8 +268,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Stealth" ,
@@ -277,8 +277,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Performance" ,
@@ -286,8 +286,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Animal Handling" ,
@@ -295,8 +295,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Medical Knowledge" ,
@@ -304,24 +304,24 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 , Name = "Manual Dexterity" ,
                         Description = "Reflects your character's manual dexterity. Useful for tasks that require manual precision, such as picking locks or crafting objects."
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 , Name = "Persuasion" ,
                         Description = "Your ability to convince and influence others. Can be used to gain allies, obtain information, or negotiate advantages."
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = ClubeSystem.DefaultPlayer.Id,
-                        Player = ClubeSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0 ,
                         Name = "Balance" ,
@@ -339,8 +339,8 @@ namespace Clube.Models.RPG
                 {
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Strength",
@@ -348,8 +348,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Dexterity",
@@ -357,8 +357,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Constitution",
@@ -366,8 +366,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Intelligence",
@@ -375,8 +375,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Wisdom",
@@ -384,8 +384,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Charisma",
@@ -393,8 +393,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Acrobatics",
@@ -402,8 +402,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Arcana",
@@ -411,8 +411,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Survival",
@@ -420,8 +420,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Perception",
@@ -429,8 +429,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Stealth",
@@ -438,8 +438,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Persuasion",
@@ -447,8 +447,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Athletics",
@@ -456,8 +456,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Religion",
@@ -465,8 +465,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Medicine",
@@ -474,8 +474,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Investigation",
@@ -493,8 +493,8 @@ namespace Clube.Models.RPG
                 {
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Força",
@@ -502,8 +502,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Destreza",
@@ -511,8 +511,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Constituição",
@@ -520,8 +520,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Inteligência",
@@ -529,8 +529,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Sabedoria",
@@ -538,8 +538,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Carisma",
@@ -547,8 +547,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Acrobacia",
@@ -556,8 +556,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Arcana",
@@ -565,8 +565,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Sobrevivência",
@@ -574,8 +574,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Percepção",
@@ -583,8 +583,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Furtividade",
@@ -592,8 +592,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Persuasão",
@@ -601,8 +601,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Atletismo",
@@ -610,8 +610,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Religião",
@@ -619,8 +619,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Medicina",
@@ -628,8 +628,8 @@ namespace Clube.Models.RPG
                     },
                     new PlayerAttribute
                     {
-                        PlayerId = DNDSystem.DefaultPlayer.Id,
-                        Player = DNDSystem.DefaultPlayer,
+                        PlayerId = Player.GetDefault().Id,
+                        Player = Player.GetDefault(),
                         Type = AttributeType.SECONDARY,
                         Value = 0,
                         Name = "Investigação",

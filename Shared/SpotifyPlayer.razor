@@ -8,8 +8,9 @@
 
 @if (string.IsNullOrEmpty( DeviceId ) && !string.IsNullOrEmpty(AccessToken))
 {
-    <div class="row justify-content-center align-content-center w-100 m-0 p-5">
-        Carregando Spotify...
+    <div class="row justify-content-center align-content-center w-100 m-0 p-5 rounded-0">
+        <div class="rotate-infinity" style="border-width: 0.3em; border-style: solid; border-color: var(--spotify-green) rgb(243, 243, 243) rgb(243, 243, 243); border-image: initial; border-radius: 50%; width: 2em; height: 2em; display: inline-block;">
+        </div>
     </div>
 }
 else if (userSpotifyClaim == null || !userSpotifyClaim.IsAuthenticated)
@@ -23,7 +24,8 @@ else if (userSpotifyClaim == null || !userSpotifyClaim.IsAuthenticated)
     else
     {
         <div class="row justify-content-center align-content-center w-100 m-0 p-5">
-            Carregando Spotify...
+            <div class="rotate-infinity" style="border-width: 0.3em; border-style: solid; border-color: var(--spotify-green) rgb(243, 243, 243) rgb(243, 243, 243); border-image: initial; border-radius: 50%; width: 2em; height: 2em; display: inline-block;">
+            </div>
         </div>
     }
 }
@@ -164,6 +166,15 @@ else
         DeviceId = deviceId;
         _self?.InvokeAsync( _self.StateHasChanged );
     }
+
+    [JSInvokable( "RefreshSpotifyToken" )]
+    public static void RefreshSpotifyToken(  )
+    {
+        DeviceId = null;
+        AccessToken = null;
+        _self?.InvokeAsync( _self.StateHasChanged );
+    }
+
 
     [JSInvokable( "SpotifyStateHasChanged" )]
     public static async Task SpotifyStateHasChanged( SpotifyWebPlaybackState? spotifyWebPlaybackStateUpdated )

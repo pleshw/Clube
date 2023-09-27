@@ -16,14 +16,17 @@ export function setSpotifyPlayerListeners(spotifyPlayer) {
     });
 
     spotifyPlayer.addListener('initialization_error', ({ message }) => {
+        debugger
         console.error(message);
     });
 
     spotifyPlayer.addListener('authentication_error', ({ message }) => {
-        console.error(message);
+        DotNet.invokeMethodAsync('Clube', 'RefreshSpotifyToken');
+        console.warn(message);
     });
 
     spotifyPlayer.addListener('account_error', ({ message }) => {
+        debugger
         console.error(message);
     });
 

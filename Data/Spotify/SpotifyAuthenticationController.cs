@@ -14,7 +14,7 @@ namespace Clube.Data.Spotify
             // Trigger the Spotify OAuth2 authentication flow.
             var properties = new AuthenticationProperties
             {
-                RedirectUri = "/" ,
+                RedirectUri = "/fichas" ,
             };
 
             return Challenge( properties , "Spotify" );
@@ -25,7 +25,7 @@ namespace Clube.Data.Spotify
         {
             if (string.IsNullOrEmpty( code ))
             {
-                return RedirectToAction( "/" ); // Handle error or redirect as needed
+                return RedirectToAction( "/fichas" ); // Handle error or redirect as needed
             }
 
             // Exchange the code for an access token and user claims

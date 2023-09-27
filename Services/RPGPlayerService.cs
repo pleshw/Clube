@@ -7,47 +7,47 @@ namespace Clube.Services;
 
 public static class RPGPlayerService
 {
-    public static Guid AddPlayer( Player player )
-    {
-        using RPGContext dbPlayers = new();
+    //public static Guid AddPlayer( Player player )
+    //{
+    //    using RPGContext dbPlayers = new();
 
-        Guid updatedId = dbPlayers.Add( player ).Entity.Id;
-        dbPlayers.SaveChanges();
+    //    Guid updatedId = dbPlayers.Add( player ).Entity.Id;
+    //    dbPlayers.SaveChanges();
 
-        return updatedId;
-    }
+    //    return updatedId;
+    //}
 
-    public static Guid RemovePlayer( Player player )
-    {
-        using RPGContext dbPlayers = new();
+    //public static Guid RemovePlayer( Player player )
+    //{
+    //    using RPGContext dbPlayers = new();
 
-        Guid updatedId = dbPlayers.Remove( player ).Entity.Id;
-        dbPlayers.SaveChanges();
+    //    Guid updatedId = dbPlayers.Remove( player ).Entity.Id;
+    //    dbPlayers.SaveChanges();
 
-        return updatedId;
-    }
+    //    return updatedId;
+    //}
 
-    public static Player? GetPlayerById( Guid playerId )
-    {
-        using RPGContext dbPlayers = new();
+    //public static Player? GetPlayerById( Guid playerId )
+    //{
+    //    using RPGContext dbPlayers = new();
 
-        return (from player in dbPlayers.Players
-                where player.Id == playerId
-                select player).FirstOrDefault();
-    }
+    //    return (from player in dbPlayers.Players
+    //            where player.Id == playerId
+    //            select player).FirstOrDefault();
+    //}
 
-    public static List<Player> GetPlayers()
-    {
-        using RPGContext dbPlayers = new();
+    //public static List<Player> GetPlayers()
+    //{
+    //    using RPGContext dbPlayers = new();
 
-        return dbPlayers.Players.OrderBy(p => p.Name).ToList();
-    }
+    //    return dbPlayers.Players.OrderBy(p => p.Name).ToList();
+    //}
 
-    public static Guid UpdatePlayer( Player player )
-    {
-        using RPGContext dbPlayers = new();
-        Guid updatedId = dbPlayers.Players.Update( player ).Entity.Id;
-        dbPlayers.SaveChanges();
-        return updatedId;
-    }
+    //public static Guid UpdatePlayer( Player player )
+    //{
+    //    using RPGContext dbPlayers = new();
+    //    Guid updatedId = dbPlayers.Players.Update( player ).Entity.Id;
+    //    dbPlayers.SaveChanges();
+    //    return updatedId;
+    //}
 }

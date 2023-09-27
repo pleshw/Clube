@@ -66,7 +66,7 @@ void ConfigureServices( IServiceCollection services , IConfiguration configurati
     services.AddTransient<IProgress<double> , ProgressTracker>();
     services.AddSingleton<YoutubeDownloaderService>();
 
-    SpotifyCredentialsProvider? spotifyCredentialsProvider = new SpotifyCredentialsProvider( configuration );
+    SpotifyCredentialsProvider? spotifyCredentialsProvider = new( configuration );
     services.AddSingleton( provider => spotifyCredentialsProvider );
 
     services.AddAuthentication( options =>

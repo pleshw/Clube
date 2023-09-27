@@ -2,18 +2,18 @@
     <div class="card m-0 p-0 rounded-0">
         <div class="card-header rounded-0 py-0">
             <div class="border-0 text-center rounded-0 user-select-none">
-                <input type="text" @bind:event="oninput" @bind="CurrentNote.Title" class="form-control-plaintext p-3 h-100 text-dark" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" placeholder="Título" />
+                <input @ref="_titleElement" disabled="@_shouldPreventDefault" type="text" @bind:event="oninput" @onkeydown="CheckSaveNotesOnEnter" @onkeydown:preventDefault="_shouldPreventDefault" @bind="CurrentNote.Title" class="form-control-plaintext p-3 h-100 text-dark" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" placeholder="Título" />
             </div>
         </div>
         <div class="card-body">
             <div class="text-center rounded-0 user-select-none" style="height:150px;">
-                <textarea @bind:event="oninput" @bind="CurrentNote.Value" class="form-control-plaintext p-3 h-100 text-dark" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" placeholder="Descrição..."></textarea>
+                <textarea @ref="_valueElement" disabled="@_shouldPreventDefault" @bind:event="oninput" @onkeydown="CheckSaveNotesOnEnter" @onkeydown:preventDefault="_shouldPreventDefault" @bind="CurrentNote.Value" class="form-control-plaintext p-3 h-100 text-dark" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" placeholder="Descrição..."></textarea>
             </div>
         </div>
         <div class="card-footer">
             <div class="rounded-0 d-flex align-items-center justify-content-center">
-                <div class="form-control bg-transparent border-0 d-flex align-items-center" style="cursor: pointer;">
-                    <input class="mx-3" style="cursor: pointer;" id="savePlayerNotesOnEnter" type="checkbox" />
+                <div class="form-control bg-transparent border-0 d-flex align-items-center d-none d-lg-flex d-xl-flex" style="cursor: pointer;">
+                    <input class="mx-3" style="cursor: pointer;" @bind="_savePlayerNotesOnEnter" id="savePlayerNotesOnEnter" type="checkbox" />
                     <label style="cursor: pointer;font-size: 14px;" for="savePlayerNotesOnEnter">Salvar quando apertar enter</label>
                 </div>
                 <div class="form-control bg-transparent border-0 d-flex justify-content-center align-items-center row" style="cursor: cursor: @(IsCurrentNoteInvalid ? "default" : "pointer");">
@@ -39,6 +39,14 @@
 
     public Note CurrentNote { get; set; } = Note.GetEmpty();
 
+    private ElementReference _titleElement;
+
+    private ElementReference _valueElement;
+
+    private bool _savePlayerNotesOnEnter { get; set; } = false;
+
+    private bool _shouldPreventDefault { get; set; } = false;
+
     private async Task TryAddNote()
     {
         if(IsCurrentNoteInvalid)
@@ -57,6 +65,16 @@
     {
         get {
             return !Note.Validation.IsValid( CurrentNote , out errorMessages );
+        }
+    }
+
+    private async Task CheckSaveNotesOnEnter( KeyboardEventArgs e )
+    {
+        if (_savePlayerNotesOnEnter && e.Key == "Enter")
+        {
+            _shouldPreventDefault = true;
+            await TryAddNote();
+            _shouldPreventDefault = false;
         }
     }
 }
