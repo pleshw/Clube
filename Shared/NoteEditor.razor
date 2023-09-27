@@ -1,3 +1,6 @@
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@inject ProtectedLocalStorage ProtectedLocalStore
+
 <div class="row w-100 m-0" style="user-select: none !important;">
     <div class="card m-0 p-0 rounded-0">
         <div class="card-header rounded-0 py-0">
@@ -13,7 +16,7 @@
         <div class="card-footer">
             <div class="rounded-0 d-flex align-items-center justify-content-center">
                 <div class="form-control bg-transparent border-0 d-flex align-items-center d-none d-lg-flex d-xl-flex" style="cursor: pointer;">
-                    <input class="mx-3" style="cursor: pointer;" @bind="_savePlayerNotesOnEnter" id="savePlayerNotesOnEnter" type="checkbox" />
+                    <input class="mx-3" style="cursor: pointer;" @bind="_savePlayerNotesOnEnter" @oninput="SaveConfigSavePlayerNotesOnEnter" id="savePlayerNotesOnEnter" type="checkbox" />
                     <label style="cursor: pointer;font-size: 14px;" for="savePlayerNotesOnEnter">Salvar quando apertar enter</label>
                 </div>
                 <div class="form-control bg-transparent border-0 d-flex justify-content-center align-items-center row" style="cursor: cursor: @(IsCurrentNoteInvalid ? "default" : "pointer");">
@@ -43,9 +46,22 @@
 
     private ElementReference _valueElement;
 
-    private bool _savePlayerNotesOnEnter { get; set; } = false;
+    private ElementReference _checkboxSavePlayerNotesOnEnter;
+
+    private bool _savePlayerNotesOnEnter;
 
     private bool _shouldPreventDefault { get; set; } = false;
+
+    protected override async Task OnAfterRenderAsync( bool firstRender )
+    {
+        await base.OnAfterRenderAsync( firstRender );
+        if (firstRender)
+        {
+            var result = await ProtectedLocalStore.GetAsync<bool>( "savePlayerNotesOnEnterSetting" );
+            _savePlayerNotesOnEnter = result.Success ? result.Value : true;
+            await InvokeAsync(StateHasChanged);
+        }
+    }
 
     private async Task TryAddNote()
     {
@@ -63,7 +79,8 @@
 
     public bool IsCurrentNoteInvalid
     {
-        get {
+        get 
+        {
             return !Note.Validation.IsValid( CurrentNote , out errorMessages );
         }
     }
@@ -76,6 +93,12 @@
             await TryAddNote();
             _shouldPreventDefault = false;
         }
+    }
+
+
+    public async Task SaveConfigSavePlayerNotesOnEnter( ChangeEventArgs e )
+    {
+        await ProtectedLocalStore.SetAsync( "savePlayerNotesOnEnterSetting" , e.Value ?? true );
     }
 }
 
