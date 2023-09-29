@@ -3,26 +3,83 @@
 <div class="row justify-content-around align-items-center py-3">
     <div class="col-3 mx-3 border border-dark shadow rounded row justify-content-center align-items-center p-0" style="width: 140px; height: 140px;">
         <div class="col-12 p-0 h-100">
-            <img class="img-fluid rounded p-0 h-100" src="@(string.IsNullOrEmpty(Player.Profile.Image) ? "https://i.imgur.com/JrpD6jf.jpeg" : Player.Profile.Image)" />
+            <img title="Clique para mudar o link da imagem" data-target="" class="img-fluid rounded p-0 h-100" src="@PlayerImg" />
         </div>
     </div>
-    <div class="gap-3 col-8 h-50 py-3 px-0 row text-center justify-content-center">
-        <div class="col-11 col-md-5">
-            <PlayerHeaderBasicInfoField Title="Nome" Value="@Player.Profile.Name"></PlayerHeaderBasicInfoField>
+    <div class="gap-3 col-12 col-lg-8 h-50 py-3 px-0 row text-center justify-content-center border shadow-sm mt-5 mt-lg-0 mt-md-0">
+        <div class="col-5 col-lg-5">
+            <PlayerHeaderBasicInfoField Title="Nome" OnChange="OnNameChange" Value="@MainPlayer.Profile.Name"></PlayerHeaderBasicInfoField>
         </div>
-        <div class="col-11 col-md-5">
-            <PlayerHeaderBasicInfoField Title="Classe" Value="@Player.Lore.Class"></PlayerHeaderBasicInfoField>
+        <div class="col-5 col-lg-5">
+            <PlayerHeaderBasicInfoField Title="Classe" OnChange="OnClassChange" Value="@MainPlayer.Lore.Class"></PlayerHeaderBasicInfoField>
         </div>
-        <div class="col-6 col-md-5">
-            <PlayerHeaderBasicInfoField Title="Raça" Value="@Player.Lore.Race"></PlayerHeaderBasicInfoField>
+        <div class="col-5 col-md-5">
+            <PlayerHeaderBasicInfoField Title="Raça" OnChange="OnRaceChange" Value="@MainPlayer.Lore.Race"></PlayerHeaderBasicInfoField>
         </div>
-        <div class="col-4 col-md-5">
-            <PlayerHeaderBasicInfoField Title="Idade" Value="@Player.Bio.Age.ToString()"></PlayerHeaderBasicInfoField>
+        <div class="col-5 col-md-5">
+            <PlayerHeaderBasicInfoField Title="Idade" OnChange="OnAgeChange" Value="@MainPlayer.Bio.Age.ToString()"></PlayerHeaderBasicInfoField>
         </div>
     </div>
 </div>
 
+<div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Link da Imagem</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 @code {
-    [Parameter]
-    public required Player Player { get; set; }
+    [CascadingParameter]
+    public required Player MainPlayer { get; set; }
+
+    [CascadingParameter]
+    public required Func<Player , Task> OnPlayerChange { get; set; }
+
+    public string PlayerImg
+    {
+        get
+        {
+            return string.IsNullOrEmpty( MainPlayer.Profile.Image ) ? "https://i.imgur.com/JrpD6jf.jpeg" : MainPlayer.Profile.Image;
+        }
+    }
+
+    public async Task OnNameChange( string newValue )
+    {
+        MainPlayer.Profile.Name = newValue;
+        await OnPlayerChange(MainPlayer);
+    }
+
+    public async Task OnClassChange(string newValue)
+    {
+        MainPlayer.Lore.Class = newValue;
+        await OnPlayerChange(MainPlayer);
+    }
+
+    public async Task OnRaceChange(string newValue)
+    {
+        MainPlayer.Lore.Race = newValue;
+        await OnPlayerChange(MainPlayer);
+    }
+
+    public async Task OnAgeChange( string newValue )
+    {
+        if (int.TryParse( newValue , out int newAge ))
+        {
+            MainPlayer.Bio.Age = newAge;
+            await OnPlayerChange( MainPlayer );
+        }
+    }
 }

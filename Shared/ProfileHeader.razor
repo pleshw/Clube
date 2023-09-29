@@ -1,11 +1,18 @@
 ﻿@using Clube.Models.RPG;
-
-<div class="row justify-content-around px-0 my-2 align-items-center w-100">
-    <div class="col-12 row justify-content-around align-items-center px-0">
-        <PlayerHeaderBasicInfo Player="Player"></PlayerHeaderBasicInfo>
-    </div>
-</div>
+<CascadingValue Value="@MainPlayer">
+    <CascadingValue Value="@OnPlayerChange">
+        <div class="row justify-content-around px-0 my-2 align-items-center w-100">
+            <div class="col-12 row justify-content-around align-items-center px-0">
+                <PlayerHeaderBasicInfo></PlayerHeaderBasicInfo>
+            </div>
+        </div>
+    </CascadingValue>
+</CascadingValue>
 
 @code {
-    [Parameter] public required Player Player { get; set; }
+    [CascadingParameter]
+    public required Player MainPlayer { get; set; }
+
+    [CascadingParameter]
+    public required Func<Player , Task> OnPlayerChange { get; set; }
 }

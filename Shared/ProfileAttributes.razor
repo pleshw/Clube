@@ -1,21 +1,29 @@
 @using Clube.Models.RPG;
 
-<div class="row justify-content-center">
-    <div class="col-12 row justify-content-center mb-4">
-        <PlayerHeaderAttributes Player="Player"></PlayerHeaderAttributes>
-    </div>
-    <div class="col-12 row justify-content-start mb-4">
-        @foreach (PlayerAttribute attribute in Player.Attributes.Where( attr => attr.Type == AttributeType.SECONDARY ).OrderBy( attr => -attr.Name.Length ))
-        {
-            <div class="col-md-4 col-12 mb-4">
-                <PlayerHeaderAttributeCard IconClassHandler="@IconClassHandler" Title="@(attribute.Name.ToString())" Value="@(attribute.Value.ToString())"></PlayerHeaderAttributeCard>
+<CascadingValue Value="@MainPlayer">
+    <CascadingValue Value="@OnPlayerChange">
+        <div class="row justify-content-center">
+            <div class="col-12 row justify-content-center mb-4">
+                <PlayerHeaderAttributes></PlayerHeaderAttributes>
             </div>
-        }
-    </div>
-</div>
+            <div class="col-12 row justify-content-start mb-4">
+                @foreach (PlayerAttribute attribute in MainPlayer.Attributes.Where( attr => attr.Type == AttributeType.SECONDARY ).OrderBy( attr => -attr.Name.Length ))
+                {
+                    <div class="col-md-4 col-12 mb-4">
+                        <PlayerHeaderAttributeCard IconClassHandler="@IconClassHandler" Title="@(attribute.Name.ToString())" Value="@(attribute.Value.ToString())"></PlayerHeaderAttributeCard>
+                    </div>
+                }
+            </div>
+        </div>
+    </CascadingValue>
+</CascadingValue>
 
 @code {
-    [Parameter] public required Player Player { get; set; }
+    [CascadingParameter]
+    public required Player MainPlayer { get; set; }
+
+    [CascadingParameter]
+    public required Func<Player , Task> OnPlayerChange { get; set; }
 
     public string IconClassHandler( string attributeName )
     {

@@ -1,15 +1,36 @@
-﻿<div style="overflow-y: auto; max-height: 720px;" class="h-100 bg-white container row shadow border-dark justify-content-center p-0 m-0">
-    <div class="row px-0 py-0 w-100 justify-content-center border-2 border-bottom">
-        <ProfileHeader Player="@MainPlayer"></ProfileHeader>
-    </div>
-    <div class="row col-12 mt-4 justify-content-center">
-        <div class="col-12 row justify-content-center px-0">
-        </div>
-    </div>
-</div>
+﻿<CascadingValue Value="@MainPlayer">
+    <CascadingValue Value="@OnPlayerChange">
+        <div style="overflow-y: auto; max-height: 720px;" class="h-100 bg-white container row shadow border-dark justify-content-center p-0 m-0">
+            <div class="row px-0 py-0 w-100 justify-content-center">
+                <ProfileHeader></ProfileHeader>
+            </div>
+            <div class="row col-12 mt-4 mb-4 justify-content-center p-0 p-lg-0 p-xl-0">
+                <div class="col-12 row justify-content-center p-0 p-lg-0 p-xl-0">
+                    <div class="row p-0 px-1 col-12">
+                        <div class="accordion border-0" id="accordionHeaderPlayerUtils">
+                            <div class="accordion-item rounded-0 border-0" style="border-left: 0 !important; border-right: 0 !important;">
+                                <h2 class="accordion-header rounded-0 border border-1">
+                                    <button class="accordion-button rounded-0 collapsed border-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlayerHistory" aria-expanded="true" aria-controls="collapsePlayerHistory">
+                                        <h5>História</h5>
+                                    </button>
+                                </h2>
+                                <div id="collapsePlayerHistory" class="accordion-collapse collapse border-0 rounded-0" data-bs-parent="#accordionHeaderPlayerUtils">
+                                    <textarea style="max-height: 300px; height: 300px;" @bind=MainPlayer.Lore.BackgroundHistory class="w-100 form-text border-0 px-2 shadow-sm input-background-history"></textarea>
+                                </div>
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </CascadingValue>
+</CascadingValue>
 
 @code {
-    [Parameter] 
-    public required Player MainPlayer { get;set; }
+    [CascadingParameter]
+    public required Player MainPlayer { get; set; }
+
+    [CascadingParameter]
+    public required Func<Player , Task> OnPlayerChange { get; set; }
 }

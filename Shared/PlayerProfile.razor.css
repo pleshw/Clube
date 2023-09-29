@@ -1,0 +1,4 @@
+﻿::deep .input-background-history, .input-background-history:focus-visible, .input-background-history:focus {
+	outline: none !important;
+	border: none !important;
+}

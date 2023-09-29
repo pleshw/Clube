@@ -1,10 +1,33 @@
 <div class="row">
     <span class="text-capitalize">@Title</span>
-    <input class="user-rpg-input-info user-rpg-name-input @(Value.Length > 0 ? "border-0" : "") px-0 text-center" type="text" value="@Value" />
+    <input @onchange="ValueHasChanged" disabled="@_disableInput" class="user-rpg-input-info user-rpg-name-input @(Value.Length > 0 ? "border-0" : "") px-0 text-center" type="text" value="@Value" />
 </div>
 
 @code {
 
     [Parameter] public required string Title { get; set; }
     [Parameter] public required string Value { get; set; }
+
+    [Parameter] public Func<string,Task>? OnChange { get; set; }
+
+    private bool _disableInput = false;
+
+    public async Task ValueHasChanged(ChangeEventArgs e)
+    {
+        var newValue = e.Value?.ToString() ?? string.Empty;
+
+        if (!string.IsNullOrEmpty( newValue ) && OnChange != null)
+        {
+            _disableInput = true;
+            try
+            {
+                await OnChange( newValue );
+            }
+            catch (Exception err)
+            {
+                Console.WriteLine( err );
+            }
+            _disableInput = false;
+        }
+    }
 }

@@ -4,6 +4,26 @@
     image-rendering: optimizeQuality !important;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 :root {
     --pleshw-main-color: #4b248f;
     --doofens-main-color: #cf7ac2;
