@@ -6,3 +6,7 @@
 
 - Entrando com uma conta de Spotify o GM vai poder sincronizar os audios de todo mundo, ou baixar vídeos do youtube e reproduzir sincronizadamente com a galerinha.   
 - Temos uma aba para salvar as fichas de personagens, criar uma aventura com um sistema específico(por enquanto aceitando DND e um sistema nosso), rolar dados e salvar anotações. Tudo com uma animação básica, mas feito com carinho. Caso queira usar alguma parte do sistema sinta-se a vontade para copiar e colar. Esse repo vai crescer um bocado, mas no meu rítimo e pra atender as necessidades do Clube. 
+
+
+### O site é feito com Blazor/ .NET 7 /. 
+#### Para usar a ferramenta do Spotify crie um secret.json com o clientId e o clientSecret que o spotify te fornece, o formato você consegue encontrar via código
